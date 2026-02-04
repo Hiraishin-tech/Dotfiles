@@ -1,0 +1,7 @@
+-- plugin for interacting with textarea on web via neovim.
+-- return {
+--     {
+--         'glacambre/firenvim',
+--         build = ":call firenvim#install(0)"
+--     }
+-- }

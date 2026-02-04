@@ -1,0 +1,9 @@
+-- return {
+--   "subnut/nvim-ghost.nvim",
+--   lazy = false,
+--   config = function()
+--     -- vim.g.nvim_ghost_disabled = 1
+--     vim.g.nvim_ghost_server_port = 4001
+--     vim.g.nvim_ghost_autostart = 1
+--   end
+-- }
