@@ -61,6 +61,15 @@ return {
                 -- resize keymaps JUST pro ToggleTerm buffer
                 local opts = { noremap = true, silent = true, buffer = term.bufnr }
 
+                -- Move out of terminal like normal windows
+                vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], opts)
+                vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], opts)
+                vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
+                vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], opts)
+
+                -- Pressing escape key to exit the terminal mode and enter normal mode
+                vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
+
                 -- ⬆⬇ horizontal resize
                 vim.keymap.set(
                     "t",
