@@ -10,10 +10,10 @@ return {
         vim.keymap.set({"n", "t"}, "<C-/>", function() betterTerm.open(1) end, { desc = "Toggle terminal 1" })
 
         -- Cycle to the right
-        vim.keymap.set({"n", "t"}, "<C-l>", function() betterTerm.cycle(1) end, { desc = "Cycle terminals to the right" })
+        vim.keymap.set({"n", "t"}, "<C-Right>", function() betterTerm.cycle(1) end, { desc = "Cycle terminals to the right" })
 
         -- Cycle to the left
-        vim.keymap.set({"n", "t"}, "<C-h>", function() betterTerm.cycle(-1) end, { desc = "Cycle terminals to the left" })
+        vim.keymap.set({"n", "t"}, "<C-Left>", function() betterTerm.cycle(-1) end, { desc = "Cycle terminals to the left" })
 
         -- Select a terminal to focus
         vim.keymap.set("n", "<leader>tt", betterTerm.select, { desc = "Select terminal" })
