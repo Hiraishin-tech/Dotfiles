@@ -57,7 +57,6 @@ return {
                 winblend = 0,
             },
             on_open = function(term)
-                -- resize keymaps just for ToggleTerm buffer
                 -- resize keymaps JUST pro ToggleTerm buffer
                 local opts = { noremap = true, silent = true, buffer = term.bufnr }
 
