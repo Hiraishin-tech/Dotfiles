@@ -18,3 +18,29 @@ For linting install python 'pip install ruff', and for JavaScript 'npm install -
 
 ### For rofi:
 Install papirus-icon-theme, JetBrainsMono Nerd Font if don't have it already.
+
+### For fastfetch with gif:
+Installation guide can be find on this website: https://not4a6f7365.medium.com/animated-gifs-in-fastfetch-a905e395c765
+Do this if not installed already:
+Step 1:
+git clone https://github.com/Maybe4a6f7365/fastfetch-gif-support.git
+cd fastfetch-gif-support
+mkdir build && cd build
+cmake ..
+make
+sudo make install
+
+Step 2:
+Put some animated gifs in the "~/Pictures/gifs/". With the script ~/animatedGifRandom.sh the random gif will be selected in the directory.
+
+Step 3 (If I would want to run a specific gif in fastfetch):
+Run with my gif:
+fastfetch \
+ --logo ~/my-animated-logo.gif \
+ --logo-type kitty-direct \
+ --logo-animate
+
+optional tweaks:
+ --logo-width 40 
+ --logo-padding-left 
+ --logo-position top

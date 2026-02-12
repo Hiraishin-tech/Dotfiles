@@ -145,7 +145,7 @@ return {
                     },
                     files = {
                         hidden = true, -- for enabling searching for hidden files.
-                        ignored = true, -- includes also files like .gitignore.
+                        ignored = true, -- also shows ignored files.
                     },
                 }
             },

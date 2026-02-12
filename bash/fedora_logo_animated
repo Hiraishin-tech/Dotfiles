@@ -1,0 +1,480 @@
+#!/bin/bash
+
+# ANSI color codes
+BLUE="\e[34m"
+WHITE="\e[37m"
+RESET="\e[0m"
+
+# Array of frames with the Fedora logo, animating the 'f' in the second line
+frames=(
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;      ;        ;cccccccccccc:
+cccccc;        ;        ;cccccccccccc;
+ccccc;    ;cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;      ;    ${WHITE}.0k.${BLUE};cccccccccccc:
+cccccc;        ;    ${WHITE}.dc.${BLUE};cccccccccccc;
+ccccc;    ;cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;      ;  ${WHITE}.000k.${BLUE};cccccccccccc:
+cccccc;        ;  ${WHITE}.kddc.${BLUE};cccccccccccc;
+ccccc;    ;cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;      ;${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;        ;${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;    ;cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;   ${WHITE}.Oo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;     ${WHITE}.d:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;    ;cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}.xOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;   ${WHITE}.xdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;    ;cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;  ${WHITE}''${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;   ;ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;    ;ccccccccccccccc;
+ccccc;     ccc     ;ccccccccccccccc;
+cccccc;           ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;    ;ccccccccccccccc;
+ccccc;${WHITE}0MN'${BLUE} ccc     ;ccccccccccccccc;
+cccccc;${WHITE}d'${BLUE}         ;cccccccccccccc:,
+cccccccc;       ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;    ;ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc     ;ccccccccccccccc;
+cccccc;${WHITE}dNM${BLUE}        ;cccccccccccccc:,
+cccccccc;${WHITE}'${BLUE}      ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;    ;ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc     ;ccccccccccccccc;
+cccccc;${WHITE}dNMWX.${BLUE}     ;cccccccccccccc:,
+cccccccc;${WHITE}.:o${BLUE}    ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;    ;ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc     ;ccccccccccccccc;
+cccccc;${WHITE}dNMWXX.${BLUE}    ;cccccccccccccc:,
+cccccccc;${WHITE}.:odl${BLUE}  ;cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;    ;ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc     ;ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXW.${BLUE}  ;cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;    ;ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.x.${BLUE}  ;ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;    ;cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc${WHITE};MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;    ;cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;    ;cc;    ;ccccccc:.
+,cccccccccccccc;    ;cc;    ;cccccccc,
+:cccccccccccccc;${WHITE}MMM.${BLUE};cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;        ;ccccccc;.
+ .:ccccccccccccc;          ;ccccccc:.
+.:ccccccccccccc;${WHITE}KMc.${BLUE};cc;    ;ccccccc:.
+,cccccccccccccc;${WHITE}MMM.${BLUE};cc;    ;cccccccc,
+:cccccccccccccc;${WHITE}MMM.${BLUE};cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;${WHITE}..${BLUE}      ;ccccccc;.
+ .:ccccccccccccc;${WHITE}OWM.${BLUE}      ;ccccccc:.
+.:ccccccccccccc;${WHITE}KMc.${BLUE};cc;    ;ccccccc:.
+,cccccccccccccc;${WHITE}MMM.${BLUE};cc;    ;cccccccc,
+:cccccccccccccc;${WHITE}MMM.${BLUE};cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;${WHITE}.:dd.${BLUE}   ;ccccccc;.
+ .:ccccccccccccc;${WHITE}OWMKO${BLUE}     ;ccccccc:.
+.:ccccccccccccc;${WHITE}KMc.${BLUE};cc;    ;ccccccc:.
+,cccccccccccccc;${WHITE}MMM.${BLUE};cc;    ;cccccccc,
+:cccccccccccccc;${WHITE}MMM.${BLUE};cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;${WHITE}.:dddl'${BLUE} ;ccccccc;.
+ .:ccccccccccccc;${WHITE}OWMKOOX${BLUE}   ;ccccccc:.
+.:ccccccccccccc;${WHITE}KMc.${BLUE};cc;    ;ccccccc:.
+,cccccccccccccc;${WHITE}MMM.${BLUE};cc;    ;cccccccc,
+:cccccccccccccc;${WHITE}MMM.${BLUE};cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;${WHITE}.:dddl:.${BLUE};ccccccc;.
+ .:ccccccccccccc;${WHITE}OWMKOOXMWd${BLUE};ccccccc:.
+.:ccccccccccccc;${WHITE}KMc.${BLUE};cc;${WHITE}'${BLUE}   ;ccccccc:.
+,cccccccccccccc;${WHITE}MMM.${BLUE};cc;    ;cccccccc,
+:cccccccccccccc;${WHITE}MMM.${BLUE};cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+"${BLUE}             .',;::::;,'.
+         .';:cccccccccccc:;,.
+      .;cccccccccccccccccccccc;.
+    .:cccccccccccccccccccccccccc:.
+  .;ccccccccccccc;${WHITE}.:dddl:.${BLUE};ccccccc;.
+ .:ccccccccccccc;${WHITE}OWMKOOXMWd${BLUE};ccccccc:.
+.:ccccccccccccc;${WHITE}KMc.${BLUE};cc;${WHITE}xMMc${BLUE};ccccccc:.
+,cccccccccccccc;${WHITE}MMM.${BLUE};cc;${WHITE};WW:${BLUE};cccccccc,
+:cccccccccccccc;${WHITE}MMM.${BLUE};cccccccccccccccc:
+:ccccccc;${WHITE}oxOOOo${BLUE};${WHITE}MMM000k.${BLUE};cccccccccccc:
+cccccc;${WHITE}0MMKxdd:${BLUE};${WHITE}MMMkddc.${BLUE};cccccccccccc;
+ccccc;${WHITE}XMO'${BLUE};cccc;${WHITE}MMM.${BLUE};cccccccccccccccc'
+ccccc;${WHITE}MMo${BLUE};ccccc;${WHITE}MMW.${BLUE};ccccccccccccccc;
+ccccc;${WHITE}0MNc.${BLUE}ccc${WHITE}.xMMd${BLUE};ccccccccccccccc;
+cccccc;${WHITE}dNMWXXXWM0:${BLUE};cccccccccccccc:,
+cccccccc;${WHITE}.:odl:.${BLUE};cccccccccccccc:,.
+ccccccccccccccccccccccccccccc:'.
+:ccccccccccccccccccccccc:;,..
+ ':cccccccccccccccc::;,.${RESET}"
+)
+
+# Run animation for one cycle (21 frames)
+for frame in "${frames[@]}"; do
+    # Save cursor position
+    tput sc
+    # Move cursor to top-left
+    printf "\e[H"
+    # Output frame and Fastfetch, restoring cursor after
+    echo -e "$frame" | fastfetch -c ~/.config/fastfetch/config.jsonc --file-raw -
+    #tput rc
+    sleep 0.01
+done
+
+#echo

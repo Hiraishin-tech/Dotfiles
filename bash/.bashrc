@@ -37,6 +37,10 @@ if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases # . je jako source, ale je univerzalnejsi, funguje i v POSIX sh
 fi
 
+# if [ -f ~/fedora_logo_animated ]; then
+# 	. ~/fedora_logo_animated
+# fi
+
 # Setting nvim as a default editor:
 export EDITOR="nvim"
 export VISUAL="nvim"
