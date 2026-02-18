@@ -7,3 +7,4 @@ alias ani-cli='ani-cli --rofi' # for defaulting to rofi
 alias fedorafetch='clear && ~/fedora_logo_animated'
 # alias animatedfetch='clear && fastfetch --logo ~/Pictures/gifs/cat-peeking.gif --logo-type kitty-direct --logo-animate'
 alias anifetch='$HOME/animatedGifRandom.sh'
+alias mann='$HOME/prettyManPages.sh'
