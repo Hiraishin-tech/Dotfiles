@@ -199,6 +199,13 @@ return {
             { "<leader>gw", function() require("snacks").picker.grep() end, desc = "Grep word" },
             { "<leader>gws", function() require("snacks").picker.grep_word() end, desc = "Search Visual selection or Word", mode = { "n", "x" } },
             { "<leader>pk", function() require("snacks").picker.keymaps({ layout = "ivy" }) end, desc = "Search Keymaps (Snacks Picker)" },
+            { "<leader><leader>", function() -- Like in JetBrains IDE by pressing shift + shift to find files and dirs, fd must be installed!!
+                require("snacks").picker.files({
+                    title = "Files & Dirs",
+                    cmd = "fd",
+                    args = { "--type", "f", "--type", "d", "--hidden", "--exclude", ".git", "--exclude", "node_modules" },
+                })
+            end, desc = "Find Files & Directories" },
 
             -- Git Stuff
             { "<leader>gbr", function() require("snacks").picker.git_branches({ layout = "select" }) end, desc = "Pick and Switch Git Branches" },
