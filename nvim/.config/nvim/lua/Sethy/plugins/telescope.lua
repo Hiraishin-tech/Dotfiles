@@ -96,6 +96,7 @@ return {
 		vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>", { desc = "Fuzzy find recent files" })
         vim.keymap.set('n', "<leader>fb", builtin.buffers, { desc = "Telescope buffers" }) -- Can also be accessed through :Telescope buffers
         vim.keymap.set('n', "<leader>ft", tabs_picker, { desc = "Telescope tabs" })
+        vim.keymap.set('n', "T", tabs_picker, { desc = "Telescope tabs" })
 		vim.keymap.set("n", "<leader>pWs", function()
 			local word = vim.fn.expand("<cWORD>")
 			builtin.grep_string({ search = word })
