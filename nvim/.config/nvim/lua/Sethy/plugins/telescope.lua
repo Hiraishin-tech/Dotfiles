@@ -92,16 +92,26 @@ return {
             }):find()
         end
 
-		-- Keymaps
-		vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>", { desc = "Fuzzy find recent files" })
+        -- Smart live_grep (mini.files aware)
+        local function smart_live_grep()
+            if _G.last_mini_dir and vim.fn.isdirectory(_G.last_mini_dir) == 1 then
+                builtin.live_grep({ search_dirs = { _G.last_mini_dir } })
+            else
+                builtin.live_grep()
+            end
+        end
+
+        -- Keymaps
+        vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<CR>", { desc = "Fuzzy find recent files" })
         vim.keymap.set('n', "<leader>fb", builtin.buffers, { desc = "Telescope buffers" }) -- Can also be accessed through :Telescope buffers
         vim.keymap.set('n', "<leader>ft", tabs_picker, { desc = "Telescope tabs" })
         vim.keymap.set('n', "T", tabs_picker, { desc = "Telescope tabs" })
-		vim.keymap.set("n", "<leader>pWs", function()
-			local word = vim.fn.expand("<cWORD>")
-			builtin.grep_string({ search = word })
+        vim.keymap.set("n", "<leader>fg", smart_live_grep, { desc = "Live grep (smart dir)" })
+        vim.keymap.set("n", "<leader>pWs", function()
+            local word = vim.fn.expand("<cWORD>")
+            builtin.grep_string({ search = word })
         end, { desc = "Find Connected Words under cursor" })
 
-		vim.keymap.set("n", "<leader>ths", "<cmd>Telescope themes<CR>", { noremap = true, silent = true, desc = "Theme Switcher" })
+        vim.keymap.set("n", "<leader>ths", "<cmd>Telescope themes<CR>", { noremap = true, silent = true, desc = "Theme Switcher" })
     end,
 }

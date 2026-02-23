@@ -38,6 +38,9 @@ return {
         config = function()
             local MiniFiles = require("mini.files")
             MiniFiles.setup({
+                windows = {
+                    preview = false,
+                },
                 mappings = {
                     go_in = "<CR>", -- Map both Enter and L to enter directories or open files
                     go_in_plus = "L",
@@ -45,6 +48,48 @@ return {
                     go_out_plus = "H",
                 },
             })
+
+            -- Sdílená proměnná pro telescope smart_live_grep
+            _G.last_mini_dir = nil
+
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "MiniFilesCursorMoved",
+                callback = function()
+                    local entry = MiniFiles.get_fs_entry()
+                    if not entry then return end
+
+                    local path = entry.path
+                    local stat = vim.uv.fs_stat(path)
+                    if stat and stat.type == "file" then
+                        path = vim.fn.fnamemodify(path, ":h")
+                    end
+                    _G.last_mini_dir = path
+                end,
+            })
+
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "MiniFilesBufferCreate",
+                callback = function(args)
+                    vim.keymap.set("n", "<leader>fg", function()
+                        local entry = MiniFiles.get_fs_entry()
+                        if not entry then
+                            MiniFiles.close()
+                            require("telescope.builtin").live_grep()
+                            return
+                        end
+
+                        local path = entry.path
+                        local stat = vim.uv.fs_stat(path)
+                        if stat and stat.type == "file" then
+                            path = vim.fn.fnamemodify(path, ":h")
+                        end
+                        _G.last_mini_dir = path
+                        MiniFiles.close()
+                        require("telescope.builtin").live_grep({ search_dirs = { path } })
+                    end, { buffer = args.data.buf_id, desc = "Live grep in current dir" })
+                end,
+            })
+
             vim.keymap.set("n", "<leader>ex", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle mini file explorer" }) -- toggle file explorer
             vim.keymap.set("n", "<leader>ef", function()
                 MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
