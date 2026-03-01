@@ -41,35 +41,47 @@ return {
 		vim.keymap.set("n", "<leader>a", function()
 			harpoon:list():add()
 		end, { desc = "Harpoon add file" })
-		vim.keymap.set("n", "<C-e>", function()
-			harpoon.ui:toggle_quick_menu(harpoon:list())
-		end)
 
-		--Harpoon marked files
-		vim.keymap.set("n", "<C-y>", function()
-			harpoon:list():select(1)
-		end)
-		vim.keymap.set("n", "<C-i>", function()
-			harpoon:list():select(2)
-		end)
-		vim.keymap.set("n", "<C-n>", function()
-			harpoon:list():select(3)
-		end)
-		vim.keymap.set("n", "<C-s>", function()
-			harpoon:list():select(4)
-		end)
+        vim.keymap.set("n", "<C-e>", function()
+            -- turn off autosave plugin due to the bug that closes harpoon menu
+            vim.cmd("ASToggle") -- autosave toggle
 
-		-- Toggle previous & next buffers stored within Harpoon list
-		vim.keymap.set("n", "<C-S-P>", function()
-			harpoon:list():prev()
-		end)
-		vim.keymap.set("n", "<C-S-N>", function()
-			harpoon:list():next()
-		end)
+            harpoon.ui:toggle_quick_menu(harpoon:list())
 
-		-- Telescope inside Harpoon Window
-		-- vim.keymap.set("n", "<C-f>", function()
-		-- 	toggle_telescope(harpoon:list())
-		-- end)
-	end,
+            -- watches the closing of the harpoon window and turn on autosave again.
+            vim.api.nvim_create_autocmd("BufLeave", {
+                once = true,
+                callback = function()
+                    vim.cmd("ASToggle")
+                end,
+            })
+        end)
+
+        --Harpoon marked files
+        vim.keymap.set("n", "<C-y>", function()
+            harpoon:list():select(1)
+        end)
+        vim.keymap.set("n", "<C-i>", function()
+            harpoon:list():select(2)
+        end)
+        vim.keymap.set("n", "<C-n>", function()
+            harpoon:list():select(3)
+        end)
+        vim.keymap.set("n", "<C-s>", function()
+            harpoon:list():select(4)
+        end)
+
+        -- Toggle previous & next buffers stored within Harpoon list
+        vim.keymap.set("n", "<C-S-P>", function()
+            harpoon:list():prev()
+        end)
+        vim.keymap.set("n", "<C-S-N>", function()
+            harpoon:list():next()
+        end)
+
+        -- Telescope inside Harpoon Window
+        -- vim.keymap.set("n", "<C-f>", function()
+        -- 	toggle_telescope(harpoon:list())
+        -- end)
+    end,
 }
