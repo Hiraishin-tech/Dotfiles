@@ -9,7 +9,7 @@ return {
             local tailwindcolorizer = require("tailwindcss-colorizer-cmp")
 
             nvchadcolorizer.setup({
-                user_default_options = {
+                options = {
                     tailwind = true,
                 },
                 filetypes = { "html", "css", "javascript", "typescript", "jsx", "tsx", "vue", "svelte", "astro"},
