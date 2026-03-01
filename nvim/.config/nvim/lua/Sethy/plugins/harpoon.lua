@@ -42,7 +42,7 @@ return {
 			harpoon:list():add()
 		end, { desc = "Harpoon add file" })
 
-        vim.keymap.set("n", "<C-e>", function()
+        vim.keymap.set("n", "<leader>o", function()
             -- turn off autosave plugin due to the bug that closes harpoon menu
             vim.cmd("ASToggle") -- autosave toggle
 
@@ -57,27 +57,33 @@ return {
             })
         end)
 
+        for i = 1, 9 do
+            vim.keymap.set("n", "<leader>" .. i, function() -- e.g. <leader>3 goes to the file n. 3 marked by harpoon
+                harpoon:list():select(i)
+            end, { desc = "Jump to Harpoon file " .. i })
+        end
+
         --Harpoon marked files
-        vim.keymap.set("n", "<C-y>", function()
-            harpoon:list():select(1)
-        end)
-        vim.keymap.set("n", "<C-i>", function()
-            harpoon:list():select(2)
-        end)
-        vim.keymap.set("n", "<C-n>", function()
-            harpoon:list():select(3)
-        end)
-        vim.keymap.set("n", "<C-s>", function()
-            harpoon:list():select(4)
-        end)
+        -- vim.keymap.set("n", "<C-y>", function()
+        --     harpoon:list():select(1)
+        -- end)
+        -- vim.keymap.set("n", "<C-i>", function()
+        --     harpoon:list():select(2)
+        -- end)
+        -- vim.keymap.set("n", "<C-n>", function()
+        --     harpoon:list():select(3)
+        -- end)
+        -- vim.keymap.set("n", "<C-s>", function()
+        --     harpoon:list():select(4)
+        -- end)
 
         -- Toggle previous & next buffers stored within Harpoon list
-        vim.keymap.set("n", "<C-S-P>", function()
-            harpoon:list():prev()
-        end)
-        vim.keymap.set("n", "<C-S-N>", function()
-            harpoon:list():next()
-        end)
+        -- vim.keymap.set("n", "<C--P>", function()
+        --     harpoon:list():prev()
+        -- end)
+        -- vim.keymap.set("n", "<C-S-N>", function()
+        --     harpoon:list():next()
+        -- end)
 
         -- Telescope inside Harpoon Window
         -- vim.keymap.set("n", "<C-f>", function()
