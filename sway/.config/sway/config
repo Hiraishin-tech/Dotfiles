@@ -1,0 +1,354 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+# set $term foot
+set $term kitty
+# Your preferred application launcher
+# set $menu wmenu-run
+set $menu "rofi -show drun"
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+exec swayidle -w \
+         timeout 600 'swaylock -f -c 000000' \
+         timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+
+# This will lock your screen after 600 seconds of inactivity, then turn off
+# your displays after 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+
+### Input configuration
+#
+# Example configuration:
+#
+  input type:touchpad {
+      pointer_accel 0.5 # from -1 to 1
+      dwt enabled
+      tap enabled
+      natural_scroll enabled
+      middle_emulation enabled
+  }
+
+   input "type:keyboard" {
+    xkb_layout "us,cz"
+    xkb_variant ",qwerty"
+    # xkb_options caps:escape_shifted_capslock
+    # remap capslock as escape and shift+capslock for capslock
+    xkb_options caps:escape_shifted_capslock,shift:both_capslock
+   }
+
+# bindsym $mod+space input type:keyboard xkb_switch_layout next
+# This script also adds the notify message for which layout is it changing
+bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
+
+# You can also configure each device individually.
+# Read `man 5 sway-input` for more information about this section.
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    # bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+#
+# Utilities:
+#
+    # Special keys to adjust volume via PulseAudio
+    # bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    # bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    # bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    # bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # # Special keys to adjust brightness via brightnessctl
+    # bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    # bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    # # Special key to take a screenshot with grim
+    # bindsym Print exec grim
+
+# Zvýšit hlasitost
+    # bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+# Snížit hlasitost
+    # bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+# Mute
+    # bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+# With swayosd
+exec swayosd-server
+# Hlasitost (--locked means that the keys will work even on locked screen)
+# bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+# bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
+bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle
+# Volume raise with max value
+bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise --max-volume 120
+# Volume lower with max value
+bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower --max-volume 120
+
+# Volume raise with custom value
+# bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume 5
+# Volume lower with custom value
+# bindsym XF86AudioLowerVolume exec swayosd-client --output-volume -5
+
+# Jas (the name of the --device [in my case amdgpu_bl1] is written here: /sys/class/backlight/)
+# bindsym --locked XF86MonBrightnessUp exec swayosd-client --brightness raise --device amdgpu_bl1
+# bindsym --locked XF86MonBrightnessDown exec swayosd-client --brightness lower --device amdgpu_bl1
+
+# Brightness raise with custom value('+' sign needed)
+# bindsym XF86MonBrightnessUp  exec swayosd-client --brightness +10
+# Brightness lower with custom value('-' sign needed)
+# bindsym XF86MonBrightnessDown exec swayosd-client --brightness -10
+
+bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/scripts/brightness-control.sh raise
+bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/scripts/brightness-control.sh lower
+
+# Přehrávání médií
+bindsym --locked XF86AudioPlay exec swayosd-client --playerctl play-pause
+bindsym --locked XF86AudioPause exec swayosd-client --playerctl play-pause
+bindsym --locked XF86AudioNext exec swayosd-client --playerctl next
+bindsym --locked XF86AudioPrev exec swayosd-client --playerctl previous
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position top
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command ~/.config/sway/scripts/status.sh
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+
+# Lock the screen by pressing windows + shift + x
+bindsym $mod+Shift+X exec swaylock
+
+# Keyboard shortcut for sleep
+bindsym ctrl+alt+1 exec systemctl suspend
+
+# Keyboard shortcut for opening brave browser
+bindsym ctrl+alt+b exec brave-browser
+
+# Keyboard shortcut for opening thunar file manager
+bindsym ctrl+alt+e exec thunar
+
+# For changing display mode
+bindsym $mod+p exec ~/.config/sway/scripts/display-toggle.sh
+
+# For wathcing if the external monitor is disconnected, then switch to internal monitor
+exec ~/.config/sway/scripts/monitor-watch.sh
+
+# For emoji picker
+bindsym $mod+period exec rofimoji --action copy
+
+# For night light
+# exec_always gammastep -l 50.0755 -L 14.4378 -t 6500:3000
+
+# For night light (specifically in sway)
+exec_always pkill gammastep
+exec_always gammastep -O 3000 &
+
+# For notify messages
+exec mako
+
+# For displaying correctly e.g. themes and downloading from web it opens the file manager
+exec systemctl --user import-environment DISPLAY
+
+# For clipboard history
+exec wl-paste --watch cliphist store
+bindsym $mod+y exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
+# For screenshots:
+# Screenshot celé obrazovky
+bindsym Print exec ~/.config/sway/scripts/screenshot.sh full
+# Screenshot výběru oblasti
+bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh region
+
+# For rofi-calc (can calculate or currency conversion etc.)
+bindsym alt+space exec rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"
+
+# So my external monitor uses 200Hz
+# can also add at the end e.g. scale 1.25, background etc.
+output HDMI-A-1 mode 1920x1080@200Hz bg ~/Pictures/grub-images/grubphemous-theme/background/penitent_bg.png stretch
+output eDP-1 bg ~/Pictures/grub-images/grubphemous-theme/background/crisanta_bg.png stretch
+
+# Use Dracula cursor (located at ~/.icons/Dracula-cursors/)
+seat seat0 xcursor_theme Dracula-cursors 24
+
+# Network icon showing in status bar
+exec nm-applet --indicator
+
+# For obs-studio screen capture
+exec --no-startup-id /usr/lib/xdg-desktop-portal -r
+bindsym $mod+alt+r exec bash -c 'obs-cli --password "$(cat ~/.local/bin/obs-websocketPassword)" record start'
+bindsym $mod+alt+s exec bash -c 'obs-cli --password "$(cat ~/.local/bin/obs-websocketPassword)" record stop'
+# Gaps and borders
+# gaps inner 4
+# gaps outer 4
+
+include /etc/sway/config.d/*

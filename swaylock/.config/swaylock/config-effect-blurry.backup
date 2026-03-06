@@ -1,0 +1,23 @@
+# Background color
+color=222222
+# Background image s blur efektem
+screenshots
+effect-blur=7x5
+effect-vignette=0.5:0.5
+# Indicator settings
+indicator-radius=75
+indicator-thickness=10
+inside-color=000000
+ring-color=6050dc
+text-color=f4671c
+# Show failed attempts
+show-failed-attempts
+# Clock in indicator
+clock
+# Font and size
+font=Noto Sans Mono
+font-size=24
+# Grace period before requiring password
+grace=0
+# Fade-in effect
+fade-in=1
