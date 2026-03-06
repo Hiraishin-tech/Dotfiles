@@ -22,7 +22,7 @@ case "$STATE" in
         # Interní pouze
         swaymsg output "$EXTERNAL" disable
         swaymsg output "$INTERNAL" enable
-        # notify-send "Display mode" "Interní displej"
+        notify-send "Display mode" "Interní displej"
         echo 1 > "$STATE_FILE"
         pkill gammastep; gammastep -O 3000 &
         ;;
@@ -30,7 +30,7 @@ case "$STATE" in
         # Externí pouze
         swaymsg output "$INTERNAL" disable
         swaymsg output "$EXTERNAL" enable
-        # notify-send "Display mode" "Externí displej"
+        notify-send "Display mode" "Externí displej"
         echo 2 > "$STATE_FILE"
         pkill gammastep; gammastep -O 3000 &
         ;;
@@ -40,7 +40,7 @@ case "$STATE" in
         swaymsg output "$EXTERNAL" enable
         swaymsg output "$EXTERNAL" position 0 0
         swaymsg output "$INTERNAL" position 0 0
-        # notify-send "Display mode" "Zrcadlení"
+        notify-send "Display mode" "Zrcadlení"
         echo 3 > "$STATE_FILE"
         pkill gammastep; gammastep -O 3000 &
         ;;
@@ -50,7 +50,7 @@ case "$STATE" in
         swaymsg output "$INTERNAL" enable
         swaymsg output "$EXTERNAL" enable
         swaymsg output "$EXTERNAL" position "$RESOLUTION" 0
-        # notify-send "Display mode" "Rozšířená plocha"
+        notify-send "Display mode" "Rozšířená plocha"
         echo 0 > "$STATE_FILE"
         pkill gammastep; gammastep -O 3000 &
         ;;

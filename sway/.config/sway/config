@@ -343,6 +343,9 @@ seat seat0 xcursor_theme Dracula-cursors 24
 # Network icon showing in status bar
 exec nm-applet --indicator
 
+# For policy kit, so when some applications need root priviliges it will popup for the root password
+exec /usr/libexec/lxqt-policykit-agent
+
 # For obs-studio screen capture
 exec --no-startup-id /usr/lib/xdg-desktop-portal -r
 bindsym $mod+alt+r exec bash -c 'obs-cli --password "$(cat ~/.local/bin/obs-websocketPassword)" record start'
