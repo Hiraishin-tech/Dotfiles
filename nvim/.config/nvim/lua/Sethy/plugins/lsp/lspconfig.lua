@@ -218,6 +218,19 @@ return {
 
         -- })
 
+        -- python
+        vim.lsp.config("pyright", {
+            settings = {
+                python = {
+                    analysis = {
+                        typeCheckingMode = "basic",
+                        autoImportCompletions = true,
+                        useLibraryCodeForTypes = true,
+                    },
+                },
+            },
+        })
+
         vim.lsp.enable("clangd")
         vim.lsp.enable("lua_ls")
         vim.lsp.enable("emmet_language_server")
@@ -228,5 +241,6 @@ return {
         vim.lsp.enable("tailwindcss")
         vim.lsp.enable("intelephense")
         vim.lsp.enable("omnisharp")
+        vim.lsp.enable("pyright")
     end,
 }
