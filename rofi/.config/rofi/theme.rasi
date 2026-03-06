@@ -4,6 +4,7 @@
 
     fg: #FFFFFF;
     fg-alt: #787c99;
+    message: #9b9fbb;
 
     background-color: @bg;
 
@@ -20,6 +21,7 @@ window {
 element {
     padding: 12;
     text-color: @fg-alt;
+    font: "monospace 13";
 }
 
 element selected {
@@ -30,6 +32,7 @@ element-text {
     background-color: inherit;
     text-color: inherit;
     vertical-align: 0.5;
+    font: "monospace 16";
 }
 
 element-icon {
@@ -57,4 +60,15 @@ prompt {
     text-color: @fg;
     vertical-align: 0.5;
     padding: 0 0 0 12px;
+}
+
+message {
+    background-color: @bg;
+    padding: 4 12;
+}
+textbox {
+    background-color: @bg;
+    text-color: @message;
+    padding: 4 0;
+    font: "monospace 16";
 }
