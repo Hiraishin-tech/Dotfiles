@@ -14,7 +14,7 @@ return {
 			typescriptreact = {"biomejs"},
 			svelte = { "biomejs" },
 			-- python = { "pylint" }, -- too noisy
-			python = { "ruff" }, -- ensure is installed by 'pin install ruff'
+			python = { "ruff" }, -- ensure is installed by 'pip install ruff'
 		}
 
 		eslint.args = {

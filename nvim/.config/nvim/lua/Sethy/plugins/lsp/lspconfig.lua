@@ -45,6 +45,7 @@ return {
 
                 opts.desc = "Show documentation for what is under cursor"
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                -- vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- Kinda a nice looking hover documentation. Uncomment this one and comment out the abvoe if you want to use this hover doc.
 
                 opts.desc = "Restart LSP"
                 vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
@@ -219,12 +220,34 @@ return {
         -- })
 
         -- python
-        vim.lsp.config("pyright", {
+        -- vim.lsp.config("pyright", {
+        --     settings = {
+        --         python = {
+        --             analysis = {
+        --                 typeCheckingMode = "basic",
+        --                 autoImportCompletions = true,
+        --                 useLibraryCodeForTypes = true,
+        --             },
+        --         },
+        --     },
+        -- })
+        -- vim.lsp.config("pylsp", {
+        --     settings = {
+        --         pylsp = {
+        --             plugins = {
+        --                 pyflakes = { enabled = false },   -- Pyright už to dělá
+        --                 pycodestyle = { enabled = false }, -- Pyright už to dělá
+        --                 mccabe = { enabled = false },
+        --                 pylsp_mypy = { enabled = false },
+        --             },
+        --         },
+        --     },
+        -- })
+        vim.lsp.config("basedpyright", {
             settings = {
-                python = {
+                basedpyright = {
                     analysis = {
                         typeCheckingMode = "basic",
-                        autoImportCompletions = true,
                         useLibraryCodeForTypes = true,
                     },
                 },
@@ -241,6 +264,6 @@ return {
         vim.lsp.enable("tailwindcss")
         vim.lsp.enable("intelephense")
         vim.lsp.enable("omnisharp")
-        vim.lsp.enable("pyright")
+        vim.lsp.enable("basedpyright")
     end,
 }
