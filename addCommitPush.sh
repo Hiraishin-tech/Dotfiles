@@ -2,7 +2,7 @@
 
 git status
 if [[ -z "$(git status --short)" ]]; then
-    echo "No changes to commit and push"
+    echo "No changes to commit and push!!"
     exit 1
 fi
 
