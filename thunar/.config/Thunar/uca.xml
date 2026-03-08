@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1772274409648134-1</unique-id>
+	<command>kitty</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>application-pdf</icon>
+	<name>Convert to PDF</name>
+	<submenu></submenu>
+	<unique-id>1772971964424504-1</unique-id>
+	<command>soffice --convert-to pdf %N</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.doc;*.docx;*.odt;*.ppt;*.pptx;*.odp</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-pdf</icon>
+	<name>...right</name>
+	<submenu>Rotate...</submenu>
+	<unique-id>1772972746855681-2</unique-id>
+	<command>qpdf %n --rotate=+90z --replace-input</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.pdf</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-pdf</icon>
+	<name>...left</name>
+	<submenu>Rotate...</submenu>
+	<unique-id>1772972830216135-3</unique-id>
+	<command>qpdf %n --rotate=-90z --replace-input</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.pdf</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-pdf</icon>
+	<name>...upside down</name>
+	<submenu>Rotate...</submenu>
+	<unique-id>1772972903485331-4</unique-id>
+	<command>qpdf %n --rotate=+180z --replace-input</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.pdf</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-pdf</icon>
+	<name>Merge PDFs</name>
+	<submenu></submenu>
+	<unique-id>1772973455914986-5</unique-id>
+	<command>qpdf --empty --pages %N -- merged.pdf</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.pdf</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>camera-video</icon>
+	<name>Media info</name>
+	<submenu></submenu>
+	<unique-id>1772973911272018-6</unique-id>
+	<command>kitty --hold ffprobe -hide_banner %f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<audio-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>image-png</icon>
+	<name>Convert to JPEG</name>
+	<submenu></submenu>
+	<unique-id>1772974254601259-7</unique-id>
+	<command>magick %f -quality 90 $(basename %n).jpg</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.png</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon>audio-x-wav</icon>
+	<name>Convert to OPUS</name>
+	<submenu></submenu>
+	<unique-id>1772978849749803-1</unique-id>
+	<command>ffmpeg -i %f -c:a libopus &quot;$(basename %f .wav).opus&quot; &amp;&amp; notify-send -i /usr/share/icons/Papirus/32x32/mimetypes/audio-x-generic.svg &quot;Conversion finished&quot;</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.wav</patterns>
+	<audio-files/>
+</action>
+<action>
+	<icon></icon>
+	<name></name>
+	<submenu></submenu>
+	<unique-id>1772978901663782-2</unique-id>
+	<command></command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.wav</patterns>
+</action>
+</actions>
