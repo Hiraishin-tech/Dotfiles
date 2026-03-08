@@ -29,7 +29,7 @@
 	<submenu>Rotate...</submenu>
 	<unique-id>1772972746855681-2</unique-id>
 	<command>qpdf %n --rotate=+90z --replace-input</command>
-	<description></description>
+	<description>Rotate pdf file right</description>
 	<range>*</range>
 	<patterns>*.pdf</patterns>
 	<other-files/>
@@ -40,7 +40,7 @@
 	<submenu>Rotate...</submenu>
 	<unique-id>1772972830216135-3</unique-id>
 	<command>qpdf %n --rotate=-90z --replace-input</command>
-	<description></description>
+	<description>Rotate pdf file left</description>
 	<range>*</range>
 	<patterns>*.pdf</patterns>
 	<other-files/>
@@ -51,7 +51,7 @@
 	<submenu>Rotate...</submenu>
 	<unique-id>1772972903485331-4</unique-id>
 	<command>qpdf %n --rotate=+180z --replace-input</command>
-	<description></description>
+	<description>Rotate pdf file upside down</description>
 	<range>*</range>
 	<patterns>*.pdf</patterns>
 	<other-files/>
@@ -73,7 +73,7 @@
 	<submenu></submenu>
 	<unique-id>1772973911272018-6</unique-id>
 	<command>kitty --hold ffprobe -hide_banner %f</command>
-	<description></description>
+	<description>Detailed info about a video/audio file</description>
 	<range>*</range>
 	<patterns>*</patterns>
 	<audio-files/>
@@ -96,19 +96,135 @@
 	<submenu></submenu>
 	<unique-id>1772978849749803-1</unique-id>
 	<command>ffmpeg -i %f -c:a libopus &quot;$(basename %f .wav).opus&quot; &amp;&amp; notify-send -i /usr/share/icons/Papirus/32x32/mimetypes/audio-x-generic.svg &quot;Conversion finished&quot;</command>
-	<description></description>
+	<description>Converts a .wav file to .opus file</description>
 	<range>*</range>
 	<patterns>*.wav</patterns>
 	<audio-files/>
 </action>
 <action>
-	<icon></icon>
-	<name></name>
-	<submenu></submenu>
-	<unique-id>1772978901663782-2</unique-id>
-	<command></command>
+	<icon>application-zip</icon>
+	<name>zip</name>
+	<submenu>Compress folder</submenu>
+	<unique-id>1772987799629935-3</unique-id>
+	<command>zip -r %n.zip %n</command>
 	<description></description>
 	<range>*</range>
-	<patterns>*.wav</patterns>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>application-zip</icon>
+	<name>unzip</name>
+	<submenu></submenu>
+	<unique-id>1772988392409045-4</unique-id>
+	<command>unzip %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.zip</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-x-gzip</icon>
+	<name>gzip</name>
+	<submenu>Compress folder</submenu>
+	<unique-id>1772988571226478-5</unique-id>
+	<command>tar -czf  %n.tar.gz %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>application-x-gzip</icon>
+	<name>Extract gzip</name>
+	<submenu></submenu>
+	<unique-id>1772988982006049-6</unique-id>
+	<command>tar -xzf %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.tar.gz;*.gz</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-epub+zip</icon>
+	<name>xz</name>
+	<submenu>Compress folder</submenu>
+	<unique-id>1772989652755716-7</unique-id>
+	<command>tar -cJf %n.tar.xz %n</command>
+	<description>Best compression ratio, slowest</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>application-epub+zip</icon>
+	<name>Extract xz</name>
+	<submenu></submenu>
+	<unique-id>1772989835043862-8</unique-id>
+	<command>tar -xJf %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.tar.xz;*.xz</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>archive-remove</icon>
+	<name>unzip and delete archive</name>
+	<submenu></submenu>
+	<unique-id>1772990281554511-9</unique-id>
+	<command>unzip %n &amp;&amp; gio trash %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.zip</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>archive-remove</icon>
+	<name>Extract gzip and delete archive</name>
+	<submenu></submenu>
+	<unique-id>1772990689189996-10</unique-id>
+	<command>tar -xzf %n &amp;&amp; gio trash %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.tar.gz;*.gz</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>archive-remove</icon>
+	<name>Extract xz and delete archive</name>
+	<submenu></submenu>
+	<unique-id>1772990920087973-11</unique-id>
+	<command>tar -xJf %n &amp;&amp; gio trash %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.tar.xz;*.xz</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-x-bzip</icon>
+	<name>Extract bzip2</name>
+	<submenu></submenu>
+	<unique-id>1772991126740083-12</unique-id>
+	<command>tar -xjf %n</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*.tar.bz2;*.bz2</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>application-zip</icon>
+	<name>zip file/files</name>
+	<submenu></submenu>
+	<unique-id>1772991376386559-13</unique-id>
+	<command>zip -r merged.zip %N </command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
 </action>
 </actions>
