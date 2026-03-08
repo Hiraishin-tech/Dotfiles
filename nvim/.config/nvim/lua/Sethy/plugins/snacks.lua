@@ -122,8 +122,25 @@ return {
                         win = {
                             list = {
                                 keys = {
-                                    ["<CR>"] = "confirm",          -- open / enter dir
-                                    -- ["<CR>"] = "open_tab",          -- opens a new tab but not working rn
+                                    -- ["<CR>"] = "confirm",          -- open / enter dir
+                                    ["<CR>"] = function() -- opens a new tab and closes snacks explorer
+                                        local sp = Snacks.picker.get()[1]
+                                        local current = sp.list:current()
+                                        if not current then return end
+                                        -- It it's a directory, then open it normally
+                                        if current.dir then
+                                            sp:action("confirm")
+                                            return
+                                        end
+                                        -- For files open them in a new tab
+                                        local path = current.file or current._path
+                                        if path then
+                                            sp:close()
+                                            vim.schedule(function()
+                                                vim.cmd("tabedit " .. vim.fn.fnameescape(path))
+                                            end)
+                                        end
+                                    end,
                                     ["-"]    = "explorer_up",      -- parent dir
                                     ["H"]    = "explorer_close",   -- close dir
                                     ["L"]    = "confirm",          -- open
