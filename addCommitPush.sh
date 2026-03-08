@@ -1,7 +1,12 @@
 #!/bin/bash
 
 git status
+read -ep "Write a commit message: " message
+if [[ -z "$message" ]]; then
+    echo "You must write a message to the commit!!"
+    exit 1
+fi
+
 git add .
-read -p "Write a commit message: " message
 git commit -m "$message"
 git push
