@@ -94,5 +94,29 @@ return {
         keys = {
             { "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open lazy git" },
         },
+    },
+    -- tardis (for timetravel in git history)
+    {
+        'fredehoey/tardis.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function ()
+            local tardis = require('tardis-nvim')
+            tardis.setup {
+                keymap = {
+                    ["next"] = '<C-j>',             -- next entry in log (older)
+                    ["prev"] = '<C-k>',             -- previous entry in log (newer)
+                    ["quit"] = 'q',                 -- quit all
+                    ["revision_message"] = '<C-m>', -- show revision message for current revision
+                    ["commit"] = '<C-g>',           -- replace contents of origin buffer with contents of tardis buffer
+                },
+                settings = {
+                    initial_revisions = 10,         -- initial revisions to create buffers for
+                    max_revisions = 256,            -- max number of revisions to load
+                    show_commit_index = false,      -- append [index|total] to buffer names when browsing revisions
+                },
+            }
+            vim.keymap.set("n", "<leader>gt", ":Tardis<CR>")
+        end
+
     }
 }
