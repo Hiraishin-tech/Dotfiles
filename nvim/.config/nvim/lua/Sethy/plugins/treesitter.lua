@@ -50,6 +50,7 @@ return {
                     "vimdoc",
                     "c",
                     "cpp",
+                    "c_sharp",
                     "java",
                     "rust",
                     "ron",

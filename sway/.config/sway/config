@@ -355,4 +355,10 @@ bindsym $mod+alt+s exec bash -c 'obs-cli --password "$(cat ~/.local/bin/obs-webs
 # gaps inner 4
 # gaps outer 4
 
+# For dark theme on most apps:
+exec_always {
+    gsettings set org.gnome.desktop.interface gtk-theme 'Breeze-Dark'
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+}
+
 include /etc/sway/config.d/*
