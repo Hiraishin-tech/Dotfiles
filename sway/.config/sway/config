@@ -137,6 +137,19 @@ bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
+
+    # For czech layout (by running 'wev' program you can find out what's the name of the keys.):
+    bindsym $mod+plus workspace number 1
+    bindsym $mod+ecaron workspace number 2
+    bindsym $mod+scaron workspace number 3
+    bindsym $mod+ccaron workspace number 4
+    bindsym $mod+rcaron workspace number 5
+    bindsym $mod+zcaron workspace number 6
+    bindsym $mod+yacute workspace number 7
+    bindsym $mod+aacute workspace number 8
+    bindsym $mod+iacute workspace number 9
+    bindsym $mod+eacute workspace number 10
+
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -150,6 +163,18 @@ bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    # For czech layout moving container to workspaces:
+    bindsym $mod+Shift+plus move container to workspace number 1
+    bindsym $mod+Shift+ecaron move container to workspace number 2
+    bindsym $mod+Shift+scaron move container to workspace number 3
+    bindsym $mod+Shift+ccaron move container to workspace number 4
+    bindsym $mod+Shift+rcaron move container to workspace number 5
+    bindsym $mod+Shift+zcaron move container to workspace number 6
+    bindsym $mod+Shift+yacute move container to workspace number 7
+    bindsym $mod+Shift+aacute move container to workspace number 8
+    bindsym $mod+Shift+iacute move container to workspace number 9
+    bindsym $mod+Shift+eacute move container to workspace number 10
 #
 # Layout stuff:
 #
@@ -187,6 +212,10 @@ bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+    # Scratchpad in czech (can also accessed in english layout) layout:
+    bindsym $mod+Shift+equal move scratchpad
+    bindsym $mod+equal scratchpad show
 #
 # Resizing containers:
 #
@@ -344,6 +373,11 @@ seat seat0 xcursor_theme Dracula-cursors 24
 # Network icon showing in status bar
 exec nm-applet --indicator
 
+# For when clicking on external link e.g. in Discord it would focus on brave-browser right away.
+# for_window [app_id="brave-browser"] focus
+# assign [app_id="brave-browser"] 1
+focus_on_window_activation focus
+
 # For policy kit, so when some applications need root priviliges it will popup for the root password
 exec /usr/libexec/lxqt-policykit-agent
 
@@ -351,6 +385,11 @@ exec /usr/libexec/lxqt-policykit-agent
 exec --no-startup-id /usr/lib/xdg-desktop-portal -r
 bindsym $mod+alt+r exec bash -c 'obs-cli --password "$(cat ~/.local/bin/obs-websocketPassword)" record start'
 bindsym $mod+alt+s exec bash -c 'obs-cli --password "$(cat ~/.local/bin/obs-websocketPassword)" record stop'
+
+# For btop always being in scratchpad:
+exec kitty --class btop -e btop
+for_window [app_id="btop"] move scratchpad
+
 # Gaps and borders
 # gaps inner 4
 # gaps outer 4
