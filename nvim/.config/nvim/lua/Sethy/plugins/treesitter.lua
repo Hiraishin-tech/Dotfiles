@@ -5,7 +5,8 @@ return {
         build = ":TSUpdate", -- after every update or plugin install this ensures that language parsers are up to date.
         config = function()
             -- import nvim-treesitter plugin
-            local treesitter = require("nvim-treesitter.configs")
+            -- local treesitter = require("nvim-treesitter.configs") -- old API (configs instead of config)
+            local treesitter = require("nvim-treesitter.config")
 
             -- configure treesitter
             treesitter.setup({ -- enable syntax highlighting

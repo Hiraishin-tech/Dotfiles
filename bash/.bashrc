@@ -48,6 +48,14 @@ export VISUAL="nvim"
 # For virsh seeing the virtual machines under $USER:
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 
+# If not running interactively, don't do anything (this was default in cachyos):
+[[ $- != *i* ]] && return
+# PS1='[\u@\h \W]\$ '
+# Change user@host to green (32) and purple (35)
+# PS1='\[\e[01;35m\]\u\[\e[01;30m\]@\[\e[01;32m\]\h\[\e[00m\]:\[\e[01;34m\]\w\[\e[00m\]\$ '
+# \u = username, \h = hostname, \w = current directory
+PS1='\[\e[01;32m\]\u\[\e[0m\]@\[\e[01;35m\]\h\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\]\$ '
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[\u = username, \h = hostname, \w = current directory[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
