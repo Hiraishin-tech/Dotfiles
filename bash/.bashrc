@@ -58,4 +58,4 @@ PS1='\[\e[01;32m\]\u\[\e[0m\]@\[\e[01;35m\]\h\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\]\
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-[\u = username, \h = hostname, \w = current directory[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

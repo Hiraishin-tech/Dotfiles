@@ -59,7 +59,8 @@ return {
         }
         -- Returns the current column number.
         local column = function()
-            local _line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+            local unpack = table.unpack or unpack
+            local _line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col
         end
 
