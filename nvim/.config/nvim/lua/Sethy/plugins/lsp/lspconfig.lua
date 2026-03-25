@@ -262,6 +262,7 @@ return {
         vim.lsp.enable("gopls")
         vim.lsp.enable("astro")
         vim.lsp.enable("tailwindcss")
+        vim.lsp.enable("cssls")
         vim.lsp.enable("intelephense")
         vim.lsp.enable("omnisharp")
         vim.lsp.enable("basedpyright")
