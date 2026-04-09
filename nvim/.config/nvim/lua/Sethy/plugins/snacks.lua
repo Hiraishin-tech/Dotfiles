@@ -156,12 +156,46 @@ return {
                                     ["yy"]   = { "explorer_yank", mode = { "n", "x" } },
 
                                     ["g?"]   = "help",
+
+                                    ["<leader>fg"] = function()
+                                        local sp = Snacks.picker.get()[1]
+                                        local current = sp.list:current()
+                                        local path = vim.fn.getcwd()
+                                        if current then
+                                            local item_path = current.file or current._path
+                                            if item_path then
+                                                path = current.dir and item_path or vim.fn.fnamemodify(item_path, ":h")
+                                            end
+                                        end
+                                        sp:close()
+                                        vim.schedule(function()
+                                            local dir_name = vim.fn.fnamemodify(path, ":t")
+                                            require("snacks").picker.grep({ cwd = path, title = 'Grep in: ' .. dir_name .. '/' })
+                                        end)
+                                    end,
+
+                                    ["<leader>fl"] = function()
+                                        local sp = Snacks.picker.get()[1]
+                                        local current = sp.list:current()
+                                        local path = vim.fn.getcwd()
+                                        if current then
+                                            local item_path = current.file or current._path
+                                            if item_path then
+                                                path = current.dir and item_path or vim.fn.fnamemodify(item_path, ":h")
+                                            end
+                                        end
+                                        sp:close()
+                                        vim.schedule(function()
+                                            local dir_name = vim.fn.fnamemodify(path, ":t")
+                                            require("snacks").picker.files({ cwd = path , title = 'Files in: ' .. dir_name .. '/' })
+                                        end)
+                                    end,
                                 },
                             },
                         },
                     },
                     files = {
-                        hidden = true, -- for enabling searching for hidden files.
+                        hidden = true,  -- for enabling searching for hidden files.
                         ignored = true, -- also shows ignored files.
                     },
                 }
@@ -171,7 +205,7 @@ return {
                     return vim.bo.filetype == "markdown"
                 end,
                 doc = {
-                    float = false, -- show image on cursor hover
+                    float = false,  -- show image on cursor hover
                     inline = false, -- show image inline
                     max_width = 50,
                     max_height = 30,
@@ -183,7 +217,7 @@ return {
                     notify = true,
                     command = "magick"
                 },
-                img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments","Archives/All-Vault-Images/", "~/Library", "~/Downloads" },
+                img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments", "Archives/All-Vault-Images/", "~/Library", "~/Downloads" },
             },
             dashboard = {
                 enabled = true,
@@ -225,7 +259,7 @@ return {
             end, desc = "Find Files & Directories" },
 
             -- Git Stuff
-            { "<leader>gbr", function() require("snacks").picker.git_branches({ layout = "select" }) end, desc = "Pick and Switch Git Branches" },
+            { "<leader>gbs", function() require("snacks").picker.git_branches({ layout = "select" }) end, desc = "Pick and Switch Git Branches" },
 
             -- Other Utils
             { "<leader>pc" , function() require("snacks").picker.colorschemes({ layout = "ivy" }) end, desc = "Pick Color Schemes"},
