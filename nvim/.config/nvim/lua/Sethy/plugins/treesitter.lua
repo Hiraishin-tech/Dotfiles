@@ -124,7 +124,9 @@ return {
                     -- Highlighting
                     pcall(vim.treesitter.start, ev.buf)
                     -- Indentation
-                    vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    if vim.bo[ev.buf].filetype ~= "cs" then -- In c# projects the treesitter indentation doesn't work as of today.
+                        vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
                 end,
             })
         end,
