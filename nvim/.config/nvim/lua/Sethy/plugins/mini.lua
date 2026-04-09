@@ -87,6 +87,24 @@ return {
                         MiniFiles.close()
                         require("telescope.builtin").live_grep({ search_dirs = { path } })
                     end, { buffer = args.data.buf_id, desc = "Live grep in current dir" })
+
+                    vim.keymap.set("n", "<leader>fl", function()
+                        local entry = MiniFiles.get_fs_entry()
+                        if not entry then
+                            MiniFiles.close()
+                            require("snacks").picker.files()
+                            return
+                        end
+
+                        local path = entry.path
+                        local stat = vim.uv.fs_stat(path)
+                        if stat and stat.type == "file" then
+                            path = vim.fn.fnamemodify(path, ":h")
+                        end
+
+                        MiniFiles.close()
+                        require("snacks").picker.files({ cwd = path })
+                    end, { buffer = args.data.buf_id, desc = "Find files in current dir (Snacks)" })
                 end,
             })
 
