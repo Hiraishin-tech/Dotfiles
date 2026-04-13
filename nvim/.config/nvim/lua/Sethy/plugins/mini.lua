@@ -85,8 +85,26 @@ return {
                         end
                         _G.last_mini_dir = path
                         MiniFiles.close()
-                        require("telescope.builtin").live_grep({ search_dirs = { path } })
+                        require("telescope.builtin").live_grep({ search_dirs = { path }, prompt_title = 'Grepping in selected folder...' })
                     end, { buffer = args.data.buf_id, desc = "Live grep in current dir" })
+
+                    vim.keymap.set("n", "<leader>fl", function()
+                        local entry = MiniFiles.get_fs_entry()
+                        if not entry then
+                            MiniFiles.close()
+                            require("snacks").picker.files()
+                            return
+                        end
+
+                        local path = entry.path
+                        local stat = vim.uv.fs_stat(path)
+                        if stat and stat.type == "file" then
+                            path = vim.fn.fnamemodify(path, ":h")
+                        end
+
+                        MiniFiles.close()
+                        require("snacks").picker.files({ cwd = path, title = 'Finding files in selected folder...' })
+                    end, { buffer = args.data.buf_id, desc = "Find files in current dir (Snacks)" })
                 end,
             })
 
@@ -114,7 +132,7 @@ return {
                 -- ysaw(ys), saaw(sa) surround a word with whitespace
                 -- yss_ surround entire line
                 mappings = {
-                    add = 'gys',          -- Add surrounding in Normal and Visual modes (added g to avoid input lag for 's')
+                    add = 'gys',         -- Add surrounding in Normal and Visual modes (added g to avoid input lag for 's')
                     delete = 'ds',       -- Delete surrounding
                     find = '',           -- Disable find
                     find_left = '',      -- Disable find left
