@@ -38,7 +38,7 @@ vim.opt.splitbelow = true -- horizontal split
 -- optional:
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "80" -- hightlights how many characters is the colorcolumn from the beginning of the line.
 
 vim.opt.clipboard:append("unnamedplus") -- for copying between neovim and different apps
 vim.opt.hlsearch = true -- when searching for something in neovim it will also hightlight the text
