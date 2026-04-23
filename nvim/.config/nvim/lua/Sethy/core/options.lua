@@ -45,3 +45,16 @@ vim.opt.hlsearch = true -- when searching for something in neovim it will also h
 
 vim.opt.mouse = "a" -- mouse support
 vim.g.editorconfig = true -- consistent coding style accross editors
+
+-- autoreload files that were changed e.g. in different text editor.
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+    pattern = "*",
+    command = "checktime",
+})
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+    pattern = "*",
+    callback = function()
+        print("File reloaded due to external change")
+    end,
+})
