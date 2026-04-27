@@ -330,7 +330,14 @@ bindsym ctrl+alt+e exec thunar
 # For changing display mode
 bindsym $mod+p exec ~/.config/sway/scripts/display-toggle.sh
 
-# For wathcing if the external monitor is disconnected, then switch to internal monitor
+# Implementing alt-tab behaviour on sway
+exec_always ~/.cargo/bin/sway-alttab
+# If you want to change the default keybind for alt-tab, change it like this: exec_always ~/.cargo/bin/sway-alttab -c "Super+Tab"
+
+# For changing between last workspaces
+bindsym $mod+tab workspace back_and_forth 
+
+# For watching if the external monitor is disconnected, then switch to internal monitor
 exec ~/.config/sway/scripts/monitor-watch.sh
 
 # For emoji picker
