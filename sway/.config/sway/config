@@ -200,6 +200,8 @@ bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+    # Move focus to the child container
+    bindsym $mod+c focus child
 #
 # Scratchpad:
 #
@@ -299,21 +301,26 @@ bindsym --locked XF86AudioPrev exec swayosd-client --playerctl previous
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
+# Default sway-bar with my few add-ons:
+# bar {
+#     position top
+#     pango_markup enabled
+#
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command ~/.config/sway/scripts/status.sh
+#
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #32323200 #32323200 #ffffff
+#     }
+# }
+
+# waybar:
 bar {
-    position top
-    pango_markup enabled
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command ~/.config/sway/scripts/status.sh
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    swaybar_command waybar
 }
-
 
 # Lock the screen by pressing windows + shift + x
 bindsym $mod+Shift+X exec swaylock
@@ -398,13 +405,20 @@ exec kitty --class btop -e btop
 for_window [app_id="btop"] move scratchpad
 
 # Gaps and borders
-# gaps inner 4
-# gaps outer 4
+# gaps inner 10
+# gaps outer 5
+# smart_gaps off
 
 # For dark theme on most apps:
 exec_always {
     gsettings set org.gnome.desktop.interface gtk-theme 'Breeze-Dark'
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 }
+
+# opacity for all windows:
+# for_window [title=".*"] opacity 0.95
+# opacity changing for current window:
+bindsym $mod+alt+F2 exec "swaymsg opacity minus 0.01"
+bindsym $mod+alt+F3 exec "swaymsg opacity plus 0.01"
 
 include /etc/sway/config.d/*
