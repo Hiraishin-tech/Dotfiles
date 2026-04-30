@@ -364,7 +364,7 @@ bindsym $mod+y exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
 # Screenshot celé obrazovky
 bindsym Print exec ~/.config/sway/scripts/screenshot.sh full
 # Screenshot výběru oblasti
-bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh region
+bindsym $mod+shift+s exec ~/.config/sway/scripts/screenshot.sh region
 
 # For rofi-calc (can calculate or currency conversion etc.)
 bindsym alt+space exec rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | wl-copy"
