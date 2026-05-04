@@ -27,9 +27,38 @@ CHOICES="Internal\nExternal\nMirror\nExtend"
 if command -v rofi &>/dev/null; then
     SELECTED=$(printf "$CHOICES" | rofi \
         -dmenu \
-        -p "display ($CURRENT)" \
-        -theme-str 'window {width: 300px; height: 260px;}' \
-        -selected-row "$STATE")
+        -i \
+        -p "Displej ($CURRENT):" \
+        -selected-row "$STATE" \
+        -theme-str '
+    window {
+        anchor: center;
+        location: center;
+        width: 50%;
+        // padding: 4px;
+        children: [ horibox ];
+    }
+    horibox {
+        orientation: horizontal;
+        children: [ prompt, entry, listview ];
+    }
+    listview {
+        layout: horizontal;
+        spacing: 5px;
+        lines: 4;
+    }
+    entry {
+        expand: false;
+        width: 5em;
+        padding: 20px 5px;
+    }
+    // element {
+    //     padding: 10px 10px;
+    // }
+    // element selected {
+    //     background-color: SteelBlue;
+    // }
+')
 elif command -v wofi &>/dev/null; then # "command -v" is like which command
     SELECTED=$(printf "$CHOICES" | wofi \
         --dmenu \
