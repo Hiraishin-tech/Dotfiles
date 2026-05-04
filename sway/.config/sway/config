@@ -339,8 +339,8 @@ bindsym ctrl+alt+e exec thunar
 bindsym $mod+p exec ~/.config/sway/scripts/display-toggle.sh
 
 # Implementing alt-tab behaviour on sway
-exec_always ~/.cargo/bin/sway-alttab
-# If you want to change the default keybind for alt-tab, change it like this: exec_always ~/.cargo/bin/sway-alttab -c "Super+Tab"
+exec --no-startup-id sway-alttab-gui daemon --mode all
+bindsym Mod1+Tab exec sway-alttab-gui show
 
 # For changing between last workspaces
 bindsym $mod+tab workspace back_and_forth 

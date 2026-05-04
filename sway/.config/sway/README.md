@@ -27,5 +27,5 @@ The name of the file in ~/.local/bin/ should be obs-websocketPassword but you ca
 config and in the ~/.local/bin/ if you want.
 
 ## 4. For alt-tab behaviour:
-Install sway-alttab from https://github.com/autolyticus/sway-alttab
-Software can be installed via cargo, it will be then located at ~/.cargo/bin/sway-alttab
+Compile or get a binary from this project: https://github.com/itsjfx/sway-alttab-gui
+Then put the binary to the $PATH variable
