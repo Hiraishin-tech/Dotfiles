@@ -24,13 +24,14 @@
         "sway/language",
         "power-profiles-daemon",
         "cpu",
-        "memory",
+        // "memory",
+        "custom/weather",
         "temperature",
         // "backlight",
         "battery",
         "battery#bat2",
         "clock",
-        "network",
+        // "network",
         "tray",
         "custom/power"
     ],
@@ -236,5 +237,13 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
+    },
+    "custom/weather": {
+        "format": "{}",
+        "exec": "$HOME/.config/waybar/weather.sh",
+        "exec-on-event": false,
+        "interval": 3600,
+        "tooltip": true,
+        "on-click": "$HOME/.config/waybar/weather-open.sh"
     }
 }

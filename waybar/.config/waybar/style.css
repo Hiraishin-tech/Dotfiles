@@ -291,10 +291,11 @@ label:focus {
 
 #language {
     background-color: #9b59b6;
-    color: #ffffff;
-    padding: 0 5px;
-    margin: 0 5px;
-    min-width: 16px;
+    color: #000000;
+    padding: 3px 8px 0px 8px;
+    min-width: 32px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 #keyboard-state {

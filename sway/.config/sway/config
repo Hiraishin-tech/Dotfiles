@@ -83,6 +83,7 @@ bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
 
     # Kill focused window
     bindsym $mod+Shift+q kill
+    bindsym $mod+BackSpace kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
