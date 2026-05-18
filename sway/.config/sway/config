@@ -67,6 +67,10 @@ exec swayidle -w \
     xkb_options caps:escape_shifted_capslock,shift:both_capslock
    }
 
+# For disabling middle click paste
+exec wl-paste --watch wl-copy -pc
+# exec sh -c 'while :; do wl-copy -pc; sleep 1; done' # will affect cpu usage
+
 # bindsym $mod+space input type:keyboard xkb_switch_layout next
 # This script also adds the notify message for which layout is it changing
 bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
@@ -217,8 +221,8 @@ bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
     bindsym $mod+minus scratchpad show
 
     # Scratchpad in czech (can also accessed in english layout) layout:
-    bindsym $mod+Shift+equal move scratchpad
-    bindsym $mod+equal scratchpad show
+    # bindsym $mod+Shift+equal move scratchpad
+    # bindsym $mod+equal scratchpad show
 #
 # Resizing containers:
 #

@@ -108,6 +108,7 @@ case "$SELECTED" in
         RESOLUTION=$(swaymsg -t get_outputs | jq -r '.[] | select(.name=="'"$INTERNAL"'") | "\(.current_mode.width)"')
         swaymsg output "$INTERNAL" enable
         swaymsg output "$EXTERNAL" enable
+        swaymsg output "$INTERNAL" position 0 0
         swaymsg output "$EXTERNAL" position "$RESOLUTION" 0
         notify-send "Display mode" "⬛⬛ Extend screen"
         echo 3 > "$STATE_FILE"

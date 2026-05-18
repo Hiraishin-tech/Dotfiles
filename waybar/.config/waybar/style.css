@@ -342,3 +342,8 @@ label:focus {
 #privacy-item.audio-out {
     background-color: #0069d4;
 }
+
+#custom-power {
+    padding-left: 5px;
+    font-size: 20px;
+}

@@ -254,6 +254,17 @@ return {
             },
         })
 
+        vim.lsp.config("arduino_language_server", {
+            filetypes = {"arduino"},
+            cmd = {
+                "arduino-language-server",
+                "-clangd", vim.fn.exepath("clangd"),
+                "-cli", vim.fn.exepath("arduino-cli"),
+                "-cli-config", vim.fn.expand("~/.arduino15/arduino-cli.yaml"),
+                "-fqbn", "arduino:avr:mega",
+            }
+        })
+
         vim.lsp.enable("clangd")
         vim.lsp.enable("lua_ls")
         vim.lsp.enable("emmet_language_server")
@@ -266,5 +277,6 @@ return {
         vim.lsp.enable("intelephense")
         vim.lsp.enable("omnisharp")
         vim.lsp.enable("basedpyright")
+        vim.lsp.enable("arduino_language_server")
     end,
 }

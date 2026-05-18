@@ -49,7 +49,8 @@ return {
                 "marksman",
                 "intelephense", -- for php lsp
                 "omnisharp", -- C#
-                "basedpyright" -- python (better than pyright)
+                "basedpyright", -- python (better than pyright)
+                "arduino_language_server"
             },
             -- auto install configured servers (with lspconfig)
             automatic_installation = true,
