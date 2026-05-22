@@ -36,11 +36,18 @@ set $menu "rofi -show drun"
 #
 # Example configuration:
 #
-exec swayidle -w \
-         timeout 600 'swaylock -f -c 000000' \
-         timeout 660 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 600 'swaylock -f -c 000000' \
+#          timeout 660 'swaymsg "output * power off"' \
+#          resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
 
+exec swayidle -w \
+    timeout 600 'swaylock -f -c 000000' \
+    timeout 660 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    timeout 1800 'systemctl suspend' \
+    before-sleep 'swaylock -f -c 000000'
 
 # This will lock your screen after 600 seconds of inactivity, then turn off
 # your displays after 60 seconds, and turn your screens back on when
@@ -425,5 +432,9 @@ exec_always {
 # opacity changing for current window:
 bindsym $mod+alt+F2 exec "swaymsg opacity minus 0.01"
 bindsym $mod+alt+F3 exec "swaymsg opacity plus 0.01"
+
+# For turning displays off and on:
+bindsym ctrl+alt+2 exec swaymsg "output * dpms off"
+bindsym ctrl+alt+3 exec swaymsg "output * dpms on"
 
 include /etc/sway/config.d/*
