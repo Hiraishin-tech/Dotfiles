@@ -437,4 +437,8 @@ bindsym $mod+alt+F3 exec "swaymsg opacity plus 0.01"
 bindsym ctrl+alt+2 exec swaymsg "output * dpms off"
 bindsym ctrl+alt+3 exec swaymsg "output * dpms on"
 
+# Using hints the program that works similarly to Vimium in the browser:
+bindsym $mod+i exec /home/tomas/.local/bin/hints
+bindsym $mod+o exec /home/tomas/.local/bin/hints --mode scroll
+
 include /etc/sway/config.d/*

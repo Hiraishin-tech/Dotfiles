@@ -29,3 +29,7 @@ config and in the ~/.local/bin/ if you want.
 ## 4. For alt-tab behaviour:
 Compile or get a binary from this project: https://github.com/itsjfx/sway-alttab-gui
 Then put the binary to the $PATH variable
+
+## 5. Installing hints so desktop applications works similarly to Vimium in the browser:
+The project url: https://github.com/AlfredoSequeida/hints
+Follow the guide on installing it.
