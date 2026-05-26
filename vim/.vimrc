@@ -37,6 +37,8 @@ set clipboard+=unnamedplus
 " Cltr + backspace deletes the whole word in insert mode
 inoremap <C-H> <C-w>
 
+" Netrw better config, set number, set relativenumber etc.
+let g:netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
 
 " Plugins:
 call plug#begin()
