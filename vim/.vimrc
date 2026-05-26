@@ -54,10 +54,20 @@ Plug 'yegappan/lsp'
 Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'catppucin/vim'
 " Plug 'morhetz/gruvbox'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " Highlight duration
 let g:highlightedyank_highlight_duration = 200
+
+"Git support
+let g:gitgutter_enabled = 1
+let g:gitgutter_signs = 1
+nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
+nnoremap <leader>gs <Plug>(GitGutterStageHunk)
+nnoremap <leader>gr <Plug>(GitGutterUndoHunk)
+
+nnoremap <leader>lg <cmd>!lazygit<cr>
 
 """"""""""""""" LSP config:""""""""""""""""""""""""""""""""""""""""
 set updatetime=300
