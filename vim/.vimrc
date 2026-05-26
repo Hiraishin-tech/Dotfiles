@@ -23,6 +23,10 @@ set softtabstop=4
 set expandtab
 set autoindent
 
+" Mouse support
+set mouse=a
+" set mouse=nv " only in normal and visual mode
+
 " Move selected lines up and down with J and K in Visual mode
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
@@ -36,6 +40,8 @@ set clipboard+=unnamedplus
 
 " Cltr + backspace deletes the whole word in insert mode
 inoremap <C-H> <C-w>
+
+
 
 " Netrw better config, set number, set relativenumber etc.
 let g:netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
@@ -54,15 +60,26 @@ call plug#end()
 let g:highlightedyank_highlight_duration = 200
 
 """"""""""""""" LSP config:""""""""""""""""""""""""""""""""""""""""
+set updatetime=300
+set signcolumn=yes
 let g:lspOpts = #{
     \ autoHighlightDiags: v:true,
-    \ showDiagWithVirtualText: v:true,
+    \ showDiagWithVirtualText: v:false,
     \ showSignature: v:true,
     \ popupBorder: v:true,
     \ semanticHighlight: v:true,
     \ autoComplete: v:true,
     \}
 autocmd User LspSetup call LspOptionsSet(g:lspOpts)
+" autocmd CursorHold * call s:ShowLspDiag() " popup dialog shows up, can be
+" annoying
+
+" Shows whats the error in the current line
+nnoremap <leader>er <cmd>LspDiag current<cr>
+
+function! s:ShowLspDiag()
+    silent! LspDiag current
+endfunction
 
 let g:lspServers = [
     \ #{
@@ -91,11 +108,38 @@ nnoremap <leader>ca <cmd>LspCodeAction<cr>
 
 " Going to the Explorer mode
 nnoremap - <cmd>Ex<cr>
+nnoremap <leader>es <cmd>Lexplore<cr>
+nnoremap <leader>ex <cmd>Lexplore<cr>
 nnoremap <leader>tn <cmd>tabnew<cr>
-nnoremap <leader>f <cmd>terminal<cr>
+" nnoremap <leader>f <cmd>botright term<cr>
+" nnoremap <Esc>f <cmd>botright term<cr>
+
+" Navigation through ctrl + navigation key
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-k> <C-w>k
+nnoremap <C-j> <C-w>j   
+
+" Brackets completion, smart pairs etc.
+inoremap { {}<Esc>ha
+inoremap ( ()<Esc>ha
+inoremap [ []<Esc>ha
+inoremap " ""<Esc>ha
+inoremap ' ''<Esc>ha
+inoremap ` ``<Esc>ha
+
+" Smart Enter inside {}
+inoremap {<CR> {}<Esc>i<CR><Esc>O
+
+" Remove highlighted text by pressing Esc key
+nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 
 set completeopt=menuone,popup
 set termguicolors
+" Cursor config
+let &t_SI = "\e[6 q"  " Insert mode: vertical beam
+let &t_EI = "\e[2 q"  " Normal mode: solid block
+
 " Color Themes:
 set background=dark
 
@@ -120,3 +164,105 @@ highlight PmenuKind guifg=#9EDe72
 highlight PmenuKindSel guifg=#ffffff gui=bold
 highlight PmenuExtra guifg=#c678dd
 highlight PmenuExtraSel guifg=#ffffff gui=bold
+
+" Netrw configuration:
+let g:netrw_winsize = 25
+let g:netrw_banner = 0 " shift + i to show the banner
+let g:netrw_localcopydircmd = 'cp -r' " Enabling recursive copy of the directories
+let g:netrw_keepdir = 0
+hi! link netrwMarkFile Search
+
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+
+function! NetrwMapping()
+" navigation
+  nmap <buffer> H -
+  nmap <buffer> L <CR>
+
+  " window navigation
+  nnoremap <buffer> <C-h> <C-w>h
+  nnoremap <buffer> <C-l> <C-w>l
+  nnoremap <buffer> <C-j> <C-w>j
+  nnoremap <buffer> <C-k> <C-w>k
+  
+" Mark files
+  nmap <buffer> <TAB>   mf
+  nmap <buffer> <S-TAB> mF
+  nmap <buffer> u       mu
+
+" Copying / move
+  nmap <buffer> yy mf
+  " p copy to the selected directory
+  " P move to the selected directory
+  nmap <buffer> p  mtmc
+  nmap <buffer> P  mtmm
+  " Delete (including non-empty directories)
+  nmap <buffer> D  :call NetrwRemoveRecursive()<CR>
+
+  " Unmark all
+  nmap <buffer> u mu
+
+  " Info
+  nmap <buffer> fl :echo join(netrw#Expose("netrwmarkfilelist"), "\n")<CR>
+  nmap <buffer> fq :echo 'Target: ' . netrw#Expose("netrwmftgt")<CR>
+endfunction
+function! NetrwRemoveRecursive()
+  if &filetype ==# 'netrw'
+    cnoremap <buffer> <CR> rm -r<CR>
+    normal mu
+    normal mf
+    try
+      normal mx
+    catch
+      echo "Canceled"
+    endtry
+    cunmap <buffer> <CR>
+  endif
+endfunction
+
+" Terminal mode config
+hi Terminal guifg=#ffffff guibg=#414259
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
+
+nnoremap <Esc>f :call TermToggle()<CR>
+tnoremap <Esc>f <C-w>:call TermToggle()<CR>
+" There is a weird bug if the netrw won't be closed first, then it
+" would send infinite loop for exit.
+tnoremap <C-d> <C-w>:call CloseNetrwAndExit()<CR>
+
+function! CloseNetrwAndExit()
+  for w in range(winnr('$'), 1, -1)
+    if getbufvar(winbufnr(w), '&filetype') == 'netrw'
+      "Closes the netrw window, :Lexplore
+      execute w . 'wincmd w'
+      close
+      break
+    endif
+  endfor
+  " Goes down to the terminal again via ctrl+d closes the terminal window
+  wincmd j
+  call term_sendkeys(bufnr('%'), "\<C-d>")
+endfunction
+
+function! TermToggle()
+  for buf in tabpagebuflist()
+    if getbufvar(buf, '&buftype') == 'terminal'
+      hide
+      return
+    endif
+  endfor
+  for buf in range(1, bufnr('$'))
+    if getbufvar(buf, '&buftype') == 'terminal' && buflisted(buf)
+      botright sb
+      execute 'buffer' buf
+      return
+    endif
+  endfor
+  botright terminal
+endfunction

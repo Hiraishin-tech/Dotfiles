@@ -36,18 +36,18 @@ set $menu "rofi -show drun"
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 600 'swaylock -f -c 000000' \
-#          timeout 660 'swaymsg "output * power off"' \
-#          resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-
 exec swayidle -w \
-    timeout 600 'swaylock -f -c 000000' \
-    timeout 660 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
-    timeout 1800 'systemctl suspend' \
-    before-sleep 'swaylock -f -c 000000'
+         timeout 600 'swaylock -f -c 000000' \
+         timeout 660 'swaymsg "output * power off"' \
+         resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+# exec swayidle -w \
+#     timeout 600 'swaylock -f -c 000000' \
+#     timeout 660 'swaymsg "output * dpms off"' \
+#     resume 'swaymsg "output * dpms on"' \
+#     timeout 1800 'systemctl suspend' \
+#     before-sleep 'swaylock -f -c 000000'
 
 # This will lock your screen after 600 seconds of inactivity, then turn off
 # your displays after 60 seconds, and turn your screens back on when
@@ -440,5 +440,7 @@ bindsym ctrl+alt+3 exec swaymsg "output * dpms on"
 # Using hints the program that works similarly to Vimium in the browser:
 bindsym $mod+i exec /home/tomas/.local/bin/hints
 bindsym $mod+o exec /home/tomas/.local/bin/hints --mode scroll
+bindsym alt+i exec /home/tomas/.local/bin/hints
+bindsym alt+o exec /home/tomas/.local/bin/hints --mode scroll
 
 include /etc/sway/config.d/*

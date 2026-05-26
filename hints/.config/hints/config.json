@@ -19,5 +19,20 @@
     "hint_background_a": 0.6
   },
     "overlay_x_offset": 0,
-    "overlay_y_offset": 30
+    "overlay_y_offset": 30,
+    "alphabet": "asdfgqwertzxcvbhjklyuiopnm",
+    "mouse_move_left": "h",
+    "mouse_move_right": "l",
+    "mouse_move_up": "k",
+    "mouse_move_down": "j",
+    "mouse_scroll_left": "h",
+    "mouse_scroll_right": "l",
+    "mouse_scroll_up": "k",
+    "mouse_scroll_down": "j",
+    "mouse_move_pixel": 10,
+    "mouse_move_pixel_sensitivity": 10,
+    "mouse_move_rampup_time": 0.5,
+    "mouse_scroll_pixel": 2,
+    "mouse_scroll_pixel_sensitivity": 2,
+    "mouse_scroll_rampup_time": 0.5
 }
