@@ -240,6 +240,16 @@ return {
                     colors.fg_gutter = fg_gutter
                     colors.fg_sidebar = fg_dark
                 end,
+                on_highlights = function(hl, c)
+                    hl.CursorLine = {
+                        -- bg = "#2f334d", 
+                    }
+
+                    hl.CursorLineNr = {
+                        fg = "#b9b9b9", -- color of the current line number
+                        bold = true,
+                    }
+                end,
             })
             -- vim.cmd("colorscheme tokyonight")
             -- NOTE: Auto switch to tokyonight for markdown files only

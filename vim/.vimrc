@@ -8,7 +8,11 @@ filetype plugin indent on
 " Display line numbers, relative number and the current cursor line
 set number
 set relativenumber
-" set cursorline
+set cursorline
+
+" Colorshemes:
+" colorscheme gruvbox
+colorscheme catppuccin
 
 " Search settings: case-insensitive unless capital letters are used
 set incsearch
@@ -154,9 +158,10 @@ nnoremap gr <cmd>LspShowReferences<cr>
 nnoremap gi <cmd>LspGotoImpl<cr>
 
 nnoremap K  <cmd>LspHover<cr>
+nnoremap qf <cmd>LspCodeAction<cr>
+nnoremap <leader>fa <cmd>LspFixAll<cr>
 
 nnoremap <leader>rn <cmd>LspRename<cr>
-nnoremap <leader>ca <cmd>LspCodeAction<cr>
 
 " nnoremap [d <cmd>LspDiag prev<cr>
 " nnoremap ]d <cmd>LspDiag next<cr>
@@ -192,15 +197,18 @@ nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 set completeopt=menuone,popup
 set termguicolors
 " Cursor config
-let &t_SI = "\e[6 q"  " Insert mode: vertical beam
-let &t_EI = "\e[2 q"  " Normal mode: solid block
+" let &t_SI = "\e[6 q"  " Insert mode: vertical beam
+" let &t_EI = "\e[2 q"  " Normal mode: solid block
+
+let g:terminal_ansi_colors = [
+    \ '#282828', '#cc241d', '#98971a', '#d79921',
+    \ '#458588', '#b16286', '#689d6a', '#d65d0e',
+    \ '#7c6f64', '#928374', '#928374', '#7c6f64',
+    \ '#928374', '#928374', '#928374', '#ebdbb2'
+\ ]
 
 " Color Themes:
 set background=dark
-
-" Colorshemes:
-" colorscheme gruvbox
-colorscheme catppuccin
 
 " Tab for selecting the first autocompletion option
 inoremap <expr> <Tab> pumvisible()
@@ -221,7 +229,7 @@ highlight PmenuExtra guifg=#c678dd
 highlight PmenuExtraSel guifg=#ffffff gui=bold
 
 " Netrw configuration:
-let g:netrw_winsize = 25
+let g:netrw_winsize = 22
 let g:netrw_banner = 0 " shift + i to show the banner
 let g:netrw_localcopydircmd = 'cp -r' " Enabling recursive copy of the directories
 let g:netrw_keepdir = 0
@@ -254,6 +262,8 @@ function! NetrwMapping()
   " P move to the selected directory
   nmap <buffer> p  mtmc
   nmap <buffer> P  mtmm
+  " r for renaming a file
+  nmap <buffer> r  R
   " Delete (including non-empty directories)
   nmap <buffer> D  :call NetrwRemoveRecursive()<CR>
   nmap <buffer> a %
@@ -280,7 +290,7 @@ function! NetrwRemoveRecursive()
 endfunction
 
 " Terminal mode config
-hi Terminal guifg=#ffffff guibg=#414259
+hi Terminal guifg=#ffffff guibg=#000000
 tnoremap <C-h> <C-w>h
 tnoremap <C-j> <C-w>j
 tnoremap <C-k> <C-w>k
