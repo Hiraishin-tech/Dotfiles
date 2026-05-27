@@ -35,6 +35,9 @@ vnoremap K :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 
+" Duplicate lines
+vnoremap <Esc>d y'>p
+
 " Clipboard support
 set clipboard+=unnamedplus
 

@@ -14,6 +14,9 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
+-- Duplicate lines
+vim.keymap.set("v", "<M-d>", "y'>p", opts) -- '> is the end of the selected visual line, '< would be the beginning of the visual line
+
 -- Paste without replacing clipboard content
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
