@@ -282,9 +282,9 @@ exec swayosd-server
 # bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
 bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle
 # Volume raise with max value
-bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise --max-volume 120
+bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise --max-volume 150
 # Volume lower with max value
-bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower --max-volume 120
+bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower --max-volume 150
 
 # Volume raise with custom value
 # bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume 5

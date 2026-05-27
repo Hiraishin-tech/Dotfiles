@@ -35,6 +35,12 @@ vnoremap K :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 
+" Duplicate lines
+" vnoremap <Esc>d y'>p
+" This will after duplicating the selected lines highlight the duplicated text again
+vnoremap <Esc>d y'>p`[V`]
+nnoremap <Esc>d yyp
+
 " Clipboard support
 set clipboard+=unnamedplus
 
