@@ -278,5 +278,7 @@ return {
         vim.lsp.enable("omnisharp")
         vim.lsp.enable("basedpyright")
         vim.lsp.enable("arduino_language_server")
+        vim.lsp.enable("bashls")
+        vim.lsp.enable("vimls")
     end,
 }

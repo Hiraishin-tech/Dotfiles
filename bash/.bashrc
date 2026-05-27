@@ -45,6 +45,9 @@ fi
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+# For LSP being visible in the terminal
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
 # For virsh seeing the virtual machines under $USER:
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 

@@ -91,6 +91,14 @@ function! s:ShowLspDiag()
     silent! LspDiag current
 endfunction
 
+" Arduino LSP doesn't work for now
+let s:arduino_args = [
+    \ '-clangd', expand('clangd'),
+    \ '-cli', expand('arduino-cli'),
+    \ '-cli-config', expand('~/.arduino15/arduino-cli.yaml'),
+    \ '-fqbn', 'arduino:avr:mega'
+    \ ]
+
 let g:lspServers = [
     \ #{
 	\	  name: 'clang',
@@ -98,7 +106,38 @@ let g:lspServers = [
 	\	  path: 'clangd',
 	\	  args: ['--background-index']
 	\ },
+    \ #{
+    \     name: 'basedpyright',
+    \     filetype: ['python'],
+    \     path: 'basedpyright-langserver',
+    \     args: ['--stdio'],
+    \ },
+    \ #{
+    \     name: 'typescriptlang',
+	\     filetype: ['javascript', 'typescript'],
+	\     path: 'typescript-language-server',
+	\     args: ['--stdio'],
+    \ },
+    \ #{
+    \     name: 'arduino',
+	\     filetype: ['arduino'],
+	\     path: 'arduino-language-server',
+    \     args: s:arduino_args,
+    \ },
+    \ #{
+    \     name: 'bash',
+	\     filetype: ['sh'],
+	\     path: 'bash-language-server',
+	\     args: ['start'],
+    \ },
+    \ #{
+    \     name: 'vim',
+	\     filetype: ['vim'],
+	\     path: 'vim-language-server',
+	\     args: ['--stdio'],
+    \ },
     \ ]
+
 autocmd User LspSetup call LspAddServer(g:lspServers)
 """"""""""""""" END OF LSP config:""""""""""""""""""""""""""""""""""""""""
 
@@ -211,6 +250,7 @@ function! NetrwMapping()
   nmap <buffer> P  mtmm
   " Delete (including non-empty directories)
   nmap <buffer> D  :call NetrwRemoveRecursive()<CR>
+  nmap <buffer> a %
 
   " Unmark all
   nmap <buffer> u mu
