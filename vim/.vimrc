@@ -332,3 +332,13 @@ function! TermToggle()
   endfor
   botright terminal
 endfunction
+
+" nnoremap <leader>gw :vimgrep // **/*<Left><Left><Left><Left><Left><Left>
+" Grepping in the whole project 
+let g:start_dir = getcwd()
+nnoremap <leader>gw :execute 'vimgrep //gj ' . g:start_dir . '/**/*'<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+" Opening quick fix list
+nnoremap <leader>co :copen<cr>
+nnoremap <leader>cc :cclose<cr>
+nnoremap <leader>cn :cnext<cr>
+nnoremap <leader>cp :cprev<cr>
