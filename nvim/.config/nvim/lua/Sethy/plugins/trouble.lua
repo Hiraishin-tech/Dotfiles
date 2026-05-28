@@ -13,7 +13,7 @@ return {
 			desc = "Open trouble document diagnostics",
 		},
 		{ "<leader>co", "<cmd>Trouble quickfix toggle<CR>", desc = "Open trouble quickfix list" },
-		{ "<leader>cc", "<cmd>cclose<CR>", desc = "Close the quickfix list" },
+        { "<leader>cc", "<cmd>cclose<CR>", desc = "Close the quickfix list" },
 		{ "<leader>cn", "<cmd>cnext<CR>", desc = "Next item in quickfix list" },
 		{ "<leader>cp", "<cmd>cprevious<CR>", desc = "Previous item in quickfix list" },
 		{ "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Open trouble location list" },

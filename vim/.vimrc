@@ -337,6 +337,8 @@ endfunction
 " Grepping in the whole project 
 let g:start_dir = getcwd()
 nnoremap <leader>gw :execute 'vimgrep //gj ' . g:start_dir . '/**/*'<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+" Visually selecting the text first, then grep it in the whole project
+vnoremap <leader>gw y:vimgrep /<C-r>"/gj <C-r>=g:start_dir<CR>/**/*
 " Opening quick fix list
 nnoremap <leader>co :copen<cr>
 nnoremap <leader>cc :cclose<cr>

@@ -107,6 +107,14 @@ return {
         vim.keymap.set('n', "<leader>ft", tabs_picker, { desc = "Telescope tabs" })
         vim.keymap.set('n', "T", tabs_picker, { desc = "Telescope tabs" })
         vim.keymap.set("n", "<leader>fg", smart_live_grep, { desc = "Live grep (smart dir)" })
+        vim.keymap.set("v", "<leader>gw", function()
+            vim.cmd('normal! "vy')
+            local text = vim.fn.getreg("v")
+
+            require("telescope.builtin").live_grep({
+                default_text = text,
+            })
+        end, { desc = "Live grep visual selection" })
         vim.keymap.set("n", "<leader>pWs", function()
             local word = vim.fn.expand("<cWORD>")
             builtin.grep_string({ search = word })
