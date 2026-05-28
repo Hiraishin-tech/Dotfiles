@@ -228,8 +228,8 @@ bindsym $mod+space exec ~/.config/sway/scripts/switch-layout.sh
     bindsym $mod+minus scratchpad show
 
     # Scratchpad in czech (can also accessed in english layout) layout:
-    # bindsym $mod+Shift+equal move scratchpad
-    # bindsym $mod+equal scratchpad show
+    bindsym $mod+Shift+equal move scratchpad
+    bindsym $mod+equal scratchpad show
 #
 # Resizing containers:
 #

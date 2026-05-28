@@ -178,7 +178,7 @@ nnoremap <leader>tn <cmd>tabnew<cr>
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 nnoremap <C-k> <C-w>k
-nnoremap <C-j> <C-w>j   
+nnoremap <C-j> <C-w>j
 
 " Brackets completion, smart pairs etc.
 inoremap { {}<Esc>ha
@@ -295,12 +295,20 @@ tnoremap <C-h> <C-w>h
 tnoremap <C-j> <C-w>j
 tnoremap <C-k> <C-w>k
 tnoremap <C-l> <C-w>l
-
+tnoremap <Esc> <C-\><C-n>
 nnoremap <Esc>f :call TermToggle()<CR>
 tnoremap <Esc>f <C-w>:call TermToggle()<CR>
 " There is a weird bug if the netrw won't be closed first, then it
 " would send infinite loop for exit.
 tnoremap <C-d> <C-w>:call CloseNetrwAndExit()<CR>
+
+" tnoremap <C-Up> <C-\><C-n>:resize +2<CR>a
+" tnoremap <C-Down> <C-\><C-n>:resize -2<CR>a
+tnoremap <C-Up> <C-w>+
+tnoremap <C-Down> <C-w>-
+
+tnoremap <C-Left> <C-\><C-n>:vertical resize -2<CR>a
+tnoremap <C-Right> <C-\><C-n>:vertical resize +2<CR>a
 
 function! CloseNetrwAndExit()
   for w in range(winnr('$'), 1, -1)
@@ -317,8 +325,9 @@ function! CloseNetrwAndExit()
 endfunction
 
 function! TermToggle()
-  for buf in tabpagebuflist()
-    if getbufvar(buf, '&buftype') == 'terminal'
+  for win in range(1, winnr('$'))
+    if getbufvar(winbufnr(win), '&buftype') == 'terminal'
+      execute win . 'wincmd w'
       hide
       return
     endif
