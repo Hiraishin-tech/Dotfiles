@@ -156,9 +156,24 @@ nnoremap gd <cmd>LspGotoDefinition<cr>
 nnoremap gD <cmd>LspGotoDeclaration<cr>
 nnoremap gr <cmd>LspShowReferences<cr>
 nnoremap gi <cmd>LspGotoImpl<cr>
+nnoremap <leader>ld :call LspDiagToggle()<CR>
+
+" s: = script-local, only visible inside this file. g: = global, visible
+" everywhere
+let s:lsp_diag_enabled = 1
+function! LspDiagToggle()
+  if s:lsp_diag_enabled
+    LspDiag highlight disable
+    let s:lsp_diag_enabled = 0
+  else
+    LspDiag highlight enable
+    let s:lsp_diag_enabled = 1
+  endif
+endfunction
 
 nnoremap K  <cmd>LspHover<cr>
 nnoremap qf <cmd>LspCodeAction<cr>
+
 nnoremap <leader>fa <cmd>LspFixAll<cr>
 
 nnoremap <leader>rn <cmd>LspRename<cr>
@@ -197,8 +212,8 @@ nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 set completeopt=menuone,popup
 set termguicolors
 " Cursor config
-" let &t_SI = "\e[6 q"  " Insert mode: vertical beam
-" let &t_EI = "\e[2 q"  " Normal mode: solid block
+let &t_SI = "\e[6 q"  " Insert mode: vertical beam
+let &t_EI = "\e[2 q"  " Normal mode: solid block
 
 let g:terminal_ansi_colors = [
     \ '#282828', '#cc241d', '#98971a', '#d79921',
@@ -306,9 +321,8 @@ tnoremap <C-d> <C-w>:call CloseNetrwAndExit()<CR>
 " tnoremap <C-Down> <C-\><C-n>:resize -2<CR>a
 tnoremap <C-Up> <C-w>+
 tnoremap <C-Down> <C-w>-
-
-tnoremap <C-Left> <C-\><C-n>:vertical resize -2<CR>a
-tnoremap <C-Right> <C-\><C-n>:vertical resize +2<CR>a
+" tnoremap <C-Left> <C-\><C-n>:vertical resize -2<CR>a
+" tnoremap <C-Right> <C-\><C-n>:vertical resize +2<CR>a
 
 function! CloseNetrwAndExit()
   for w in range(winnr('$'), 1, -1)
@@ -353,3 +367,28 @@ nnoremap <leader>co :copen<cr>
 nnoremap <leader>cc :cclose<cr>
 nnoremap <leader>cn :cnext<cr>
 nnoremap <leader>cp :cprev<cr>
+
+" Writing to a file fast
+nnoremap <leader>w :update<cr>
+
+" Autoreload files that were changed e.g. in different text editor.
+set autoread
+autocmd FocusGained,BufEnter,CursorHold * checktime
+autocmd FileChangedShellPost * echo "File reloaded due to external change"
+
+" Own autosave implementation"
+function! AutoSave()
+  " Don't save if:
+  " - file doesn't have a name
+  " - file is readonly
+  " - buffer is special (terminal, help, etc.)
+  if expand('%') == '' | return | endif
+  if &readonly | return | endif
+  if &buftype != '' | return | endif
+  if &modified
+      silent! update
+      echo "Autosaved: " . expand('%:p')
+  endif
+endfunction
+
+autocmd InsertLeave,BufLeave,FocusLost * call AutoSave()

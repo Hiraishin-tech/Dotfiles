@@ -97,3 +97,6 @@ vim.keymap.set("n", "<leader>ld", function()
         -- severity_sort = true,
     })
 end, { desc = "Toggle LSP diagnostics" })
+
+-- Update a file fast
+vim.keymap.set("n", "<leader>w", ":update<cr>", { desc = "Writes to a file when there are changes"})
