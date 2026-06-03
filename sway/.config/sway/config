@@ -36,11 +36,17 @@ set $menu "rofi -show drun"
 #
 # Example configuration:
 #
+# exec swayidle -w \
+#          timeout 600 'swaylock -f -c 000000' \
+#          timeout 660 'swaymsg "output * power off"' \
+#          resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+
 exec swayidle -w \
-         timeout 600 'swaylock -f -c 000000' \
+         timeout 600 'waylock' \
          timeout 660 'swaymsg "output * power off"' \
          resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'waylock'
 
 # exec swayidle -w \
 #     timeout 600 'swaylock -f -c 000000' \
@@ -335,7 +341,7 @@ bar {
 }
 
 # Lock the screen by pressing windows + shift + x
-bindsym $mod+Shift+X exec swaylock
+bindsym $mod+Shift+X exec waylock
 
 # Keyboard shortcut for sleep
 bindsym ctrl+alt+1 exec systemctl suspend

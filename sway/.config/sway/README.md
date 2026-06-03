@@ -33,3 +33,5 @@ Then put the binary to the $PATH variable
 ## 5. Installing hints so desktop applications works similarly to Vimium in the browser:
 The project url: https://github.com/AlfredoSequeida/hints
 Follow the guide on installing it.
+
+## 6. Install waylock for screen locking if there is an issue with the screen after sleep.

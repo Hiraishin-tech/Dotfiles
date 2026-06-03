@@ -31,6 +31,10 @@ set autoindent
 set mouse=a
 " set mouse=nv " only in normal and visual mode
 
+" Filter files
+:set errorformat=%f
+nnoremap <leader>ff :cexpr system('find . -name ""') \| copen<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
 " Move selected lines up and down with J and K in Visual mode
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
@@ -82,6 +86,13 @@ nnoremap <leader>lg <cmd>!lazygit<cr>
 """"""""""""""" LSP config:""""""""""""""""""""""""""""""""""""""""
 set updatetime=300
 set signcolumn=yes
+" ctrl + space, opens the omniCompletion
+inoremap <C-@> <C-x><C-o>
+" traversing the completion menu via ctrl + j/k
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+autocmd User LspAttached setlocal omnifunc=LspOmniFunc
+
 let g:lspOpts = #{
     \ autoHighlightDiags: v:true,
     \ showDiagWithVirtualText: v:false,
@@ -89,6 +100,8 @@ let g:lspOpts = #{
     \ popupBorder: v:true,
     \ semanticHighlight: v:true,
     \ autoComplete: v:true,
+    \ omniCompleteAllowBare: v:true,
+    \ completionTextEdit: v:true,
     \}
 autocmd User LspSetup call LspOptionsSet(g:lspOpts)
 " autocmd CursorHold * call s:ShowLspDiag() " popup dialog shows up, can be
@@ -188,6 +201,10 @@ nnoremap <leader>ex <cmd>Lexplore<cr>
 nnoremap <leader>tn <cmd>tabnew<cr>
 " nnoremap <leader>f <cmd>botright term<cr>
 " nnoremap <Esc>f <cmd>botright term<cr>
+
+" Spliting window
+nnoremap <leader>vs <cmd>vertical split<cr>
+nnoremap <leader>hs <cmd>horizontal split<cr>
 
 " Navigation through ctrl + navigation key
 nnoremap <C-h> <C-w>h
@@ -359,7 +376,7 @@ endfunction
 " nnoremap <leader>gw :vimgrep // **/*<Left><Left><Left><Left><Left><Left>
 " Grepping in the whole project 
 let g:start_dir = getcwd()
-nnoremap <leader>gw :execute 'vimgrep //gj ' . g:start_dir . '/**/*'<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+nnoremap <leader>gw :execute 'vimgrep //gj ' . g:start_dir . '/**/*' \| copen<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 " Visually selecting the text first, then grep it in the whole project
 vnoremap <leader>gw y:vimgrep /<C-r>"/gj <C-r>=g:start_dir<CR>/**/*
 " Opening quick fix list
@@ -392,3 +409,14 @@ function! AutoSave()
 endfunction
 
 autocmd InsertLeave,BufLeave,FocusLost * call AutoSave()
+
+" Setting undo history
+set undofile
+set undodir=~/.vim/undoDir
+" saving undo info!
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undoDir")
+    call mkdir($HOME."/.vim/undoDir", "p", 0700)
+endif

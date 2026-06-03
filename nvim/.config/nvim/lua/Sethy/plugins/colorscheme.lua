@@ -242,7 +242,7 @@ return {
                 end,
                 on_highlights = function(hl, c)
                     hl.CursorLine = {
-                        -- bg = "#2f334d", 
+                        bg = "#282b3b", 
                     }
 
                     hl.CursorLineNr = {
