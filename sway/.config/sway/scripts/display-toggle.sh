@@ -86,14 +86,12 @@ case "$SELECTED" in
         swaymsg output "$INTERNAL" enable
         notify-send "Display mode" "🖥 Internal display"
         echo 0 > "$STATE_FILE"
-        apply_gammastep
         ;;
     "External")
         swaymsg output "$INTERNAL" disable
         swaymsg output "$EXTERNAL" enable
         notify-send "Display mode" "🖥 External display"
         echo 1 > "$STATE_FILE"
-        apply_gammastep
         ;;
     "Mirror")
         swaymsg output "$INTERNAL" enable
@@ -102,7 +100,6 @@ case "$SELECTED" in
         swaymsg output "$INTERNAL" position 0 0
         notify-send "Display mode" "⧉ Mirror"
         echo 2 > "$STATE_FILE"
-        apply_gammastep
         ;;
     "Extend")
         RESOLUTION=$(swaymsg -t get_outputs | jq -r '.[] | select(.name=="'"$INTERNAL"'") | "\(.current_mode.width)"')
@@ -112,6 +109,6 @@ case "$SELECTED" in
         swaymsg output "$EXTERNAL" position "$RESOLUTION" 0
         notify-send "Display mode" "⬛⬛ Extend screen"
         echo 3 > "$STATE_FILE"
-        apply_gammastep
         ;;
 esac
+apply_gammastep
