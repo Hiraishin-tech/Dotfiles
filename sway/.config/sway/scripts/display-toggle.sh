@@ -15,13 +15,15 @@ STATE=$(cat "$STATE_FILE" 2>/dev/null || echo 0) # Default state is 0
 case "$STATE" in
     0) CURRENT="Internal" ;;
     1) CURRENT="External" ;;
-    2) CURRENT="Mirror" ;;
-    3) CURRENT="Extend" ;;
+    2) CURRENT="External (Vert.)" ;;
+    3) CURRENT="Mirror" ;;
+    4) CURRENT="Extend" ;;
+    5) CURRENT="Extend (Vert.)" ;;
     *) CURRENT="" ;;
 esac
 
 # Menu item order – the active option will be first
-CHOICES="Internal\nExternal\nMirror\nExtend"
+CHOICES="Internal\nExternal\nExternal (Vert.)\nMirror\nExtend\nExtend (Vert.)"
 
 # Choose a menu program (wofi is preffered for Wayland). But I prefer rofi :)
 if command -v rofi &>/dev/null; then
@@ -34,7 +36,7 @@ if command -v rofi &>/dev/null; then
     window {
         anchor: center;
         location: center;
-        width: 50%;
+        width: 70%;
         // padding: 4px;
         children: [ horibox ];
     }
@@ -44,8 +46,8 @@ if command -v rofi &>/dev/null; then
     }
     listview {
         layout: horizontal;
-        spacing: 5px;
-        lines: 4;
+        spacing: 0px;
+        lines: 6;
     }
     entry {
         expand: false;
@@ -89,26 +91,40 @@ case "$SELECTED" in
         ;;
     "External")
         swaymsg output "$INTERNAL" disable
-        swaymsg output "$EXTERNAL" enable
+        swaymsg output "$EXTERNAL" enable transform normal
         notify-send "Display mode" "🖥 External display"
         echo 1 > "$STATE_FILE"
         ;;
+    "External (Vert.)")
+        swaymsg output "$INTERNAL" disable
+        swaymsg output "$EXTERNAL" enable transform 90
+        notify-send "Display mode" "🖥 External (Vert.)"
+        echo 2 > "$STATE_FILE"
+    ;;
     "Mirror")
         swaymsg output "$INTERNAL" enable
         swaymsg output "$EXTERNAL" enable
         swaymsg output "$EXTERNAL" position 0 0
         swaymsg output "$INTERNAL" position 0 0
         notify-send "Display mode" "⧉ Mirror"
-        echo 2 > "$STATE_FILE"
+        echo 3 > "$STATE_FILE"
         ;;
     "Extend")
         RESOLUTION=$(swaymsg -t get_outputs | jq -r '.[] | select(.name=="'"$INTERNAL"'") | "\(.current_mode.width)"')
-        swaymsg output "$INTERNAL" enable
-        swaymsg output "$EXTERNAL" enable
-        swaymsg output "$INTERNAL" position 0 0
-        swaymsg output "$EXTERNAL" position "$RESOLUTION" 0
+        swaymsg output "$INTERNAL" enable position 0 0
+        swaymsg output "$EXTERNAL" enable transform normal position "$RESOLUTION" 0
         notify-send "Display mode" "⬛⬛ Extend screen"
-        echo 3 > "$STATE_FILE"
+        echo 4 > "$STATE_FILE"
         ;;
+    "Extend (Vert.)")
+        RESOLUTION=$(swaymsg -t get_outputs | jq -r \
+            '.[] | select(.name=="'"$INTERNAL"'") | .current_mode.width')
+
+        swaymsg output "$INTERNAL" enable position 0 0
+        swaymsg output "$EXTERNAL" enable transform 90 position "$RESOLUTION" 0
+
+        notify-send "Display mode" "⬛⬛ Extend (Vert.)"
+        echo 5 > "$STATE_FILE"
+    ;;
 esac
 apply_gammastep
