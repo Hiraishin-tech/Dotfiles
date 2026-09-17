@@ -103,6 +103,13 @@ let g:lspOpts = #{
     \ omniCompleteAllowBare: v:true,
     \ completionTextEdit: v:true,
     \}
+" \ hoverInPreview: v:true, can add so instead of a popup a new window for lsp
+" hover docs will show.
+
+" Scrolling lsp hover window via cltr+f/b
+nnoremap <expr> <C-n> !empty(popup_list()) ? "\<C-f>" : "\<C-n>"
+nnoremap <expr> <C-p> !empty(popup_list()) ? "\<C-b>" : "\<C-p>"
+
 autocmd User LspSetup call LspOptionsSet(g:lspOpts)
 " autocmd CursorHold * call s:ShowLspDiag() " popup dialog shows up, can be
 " annoying

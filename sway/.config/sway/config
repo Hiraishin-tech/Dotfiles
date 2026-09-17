@@ -42,11 +42,16 @@ set $menu "rofi -show drun"
 #          resume 'swaymsg "output * power on"' \
 #          before-sleep 'swaylock -f -c 000000'
 
+# latest commented out:
+# exec swayidle -w \
+#          timeout 600 'waylock' \
+#          timeout 660 'swaymsg "output * power off"' \
+#          resume 'swaymsg "output * power on"' \
+#          before-sleep 'waylock'
+
 exec swayidle -w \
-         timeout 600 'waylock' \
          timeout 660 'swaymsg "output * power off"' \
          resume 'swaymsg "output * power on"' \
-         before-sleep 'waylock'
 
 # exec swayidle -w \
 #     timeout 600 'swaylock -f -c 000000' \
@@ -341,10 +346,11 @@ bar {
 }
 
 # Lock the screen by pressing windows + shift + x
-bindsym $mod+Shift+X exec waylock
+bindsym $mod+Shift+X exec swaylock
 
 # Keyboard shortcut for sleep
 bindsym ctrl+alt+1 exec systemctl suspend
+bindsym ctrl+alt+plus exec systemctl suspend
 
 # Keyboard shortcut for opening brave browser
 bindsym ctrl+alt+b exec brave-browser
@@ -426,6 +432,7 @@ for_window [app_id="btop"] move scratchpad
 # gaps inner 10
 # gaps outer 5
 # smart_gaps off
+hide_edge_borders both
 
 # For dark theme on most apps:
 exec_always {

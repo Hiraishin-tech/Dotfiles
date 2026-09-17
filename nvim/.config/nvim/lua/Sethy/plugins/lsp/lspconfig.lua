@@ -280,5 +280,6 @@ return {
         vim.lsp.enable("arduino_language_server")
         vim.lsp.enable("bashls")
         vim.lsp.enable("vimls")
+        vim.lsp.enable("texlab")
     end,
 }

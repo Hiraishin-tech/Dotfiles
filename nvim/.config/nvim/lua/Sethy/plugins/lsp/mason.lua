@@ -52,7 +52,8 @@ return {
                 "basedpyright", -- python (better than pyright)
                 "arduino_language_server",
                 "bashls",
-                "vimls"
+                "vimls",
+                "texlab"
             },
             -- auto install configured servers (with lspconfig)
             automatic_installation = true,
