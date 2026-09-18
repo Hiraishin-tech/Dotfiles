@@ -40,8 +40,11 @@
         }
     ],
     "workbench.settings.applyToAllProfiles": [
+
+    
         
     ],
     "editor.lineNumbers": "relative",
+    "keyboard.dispatch": "keyCode",
     "security.workspace.trust.untrustedFiles": "open",
 }
