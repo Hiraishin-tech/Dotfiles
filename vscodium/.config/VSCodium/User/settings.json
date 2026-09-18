@@ -33,6 +33,10 @@
             "commands": [
                 "editor.action.showHover"
             ]
+        },
+        {
+            "before": ["T"],
+            "commands": ["workbench.action.showAllEditors"]
         }
     ],
     "workbench.settings.applyToAllProfiles": [
