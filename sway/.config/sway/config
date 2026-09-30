@@ -82,7 +82,9 @@ exec swayidle -w \
     xkb_variant ",qwerty"
     # xkb_options caps:escape_shifted_capslock
     # remap capslock as escape and shift+capslock for capslock
-    xkb_options caps:escape_shifted_capslock,shift:both_capslock
+
+    # My config is now in keyd.
+    # xkb_options caps:escape_shifted_capslock,shift:both_capslock
    }
 
 # For disabling middle click paste
