@@ -9,6 +9,7 @@ filetype plugin indent on
 set number
 set relativenumber
 set cursorline
+set ttimeoutlen=50 " Delay after escape
 
 " Colorshemes:
 " colorscheme gruvbox
@@ -236,8 +237,8 @@ nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 set completeopt=menuone,popup
 set termguicolors
 " Cursor config
-" let &t_SI = "\e[6 q"  " Insert mode: vertical beam
-" let &t_EI = "\e[2 q"  " Normal mode: solid block
+let &t_SI = "\e[6 q"  " Insert mode: vertical beam
+let &t_EI = "\e[2 q"  " Normal mode: solid block
 
 let g:terminal_ansi_colors = [
     \ '#282828', '#cc241d', '#98971a', '#d79921',
