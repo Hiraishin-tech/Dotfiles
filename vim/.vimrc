@@ -28,6 +28,9 @@ set softtabstop=4
 set expandtab
 set autoindent
 
+" Displaying the name of the file at the bottom.
+set laststatus=2
+
 " Mouse support
 set mouse=a
 " set mouse=nv " only in normal and visual mode

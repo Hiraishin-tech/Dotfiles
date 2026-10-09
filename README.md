@@ -44,3 +44,21 @@ optional tweaks:
  --logo-width 40 
  --logo-padding-left 
  --logo-position top
+
+ Step 4:
+ If you want to control external monitor via keyboard, install ddcutil.
+ Example:
+sudo pacman -S ddcutil
+sudo modprobe i2c-dev
+echo i2c-dev | sudo tee /etc/modules-load.d/i2c-dev.conf
+
+Adding to group i2c, so no need to use sudo:
+sudo groupadd --system i2c
+sudo usermod -aG i2c $USER
+reboot
+
+Check if everything is okay:
+ddcutil detect
+
+Changing brightness:
+ddcutil setvcp 10 70
