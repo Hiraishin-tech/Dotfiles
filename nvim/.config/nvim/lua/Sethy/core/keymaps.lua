@@ -66,6 +66,12 @@ vim.keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>") --close current tab
 -- vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>")     --go to pre
 vim.keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>") --open current tab in new tab
 
+-- Navigation through ctrl + navigation key
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+
 --split management
 -- split window vertically
 vim.keymap.set("n", "<leader>vs", "<C-w>v", { desc = "Split window vertically" })
