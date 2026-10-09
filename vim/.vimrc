@@ -431,3 +431,71 @@ endif
 if !isdirectory($HOME."/.vim/undoDir")
     call mkdir($HOME."/.vim/undoDir", "p", 0700)
 endif
+
+" function! TabsPicker() abort
+"   " l: as local variable, g: as global variable
+"   let l:lines = []
+"   for i in range(1, tabpagenr('$'))
+"     let l:buflist = tabpagebuflist(i)
+"     let l:win = tabpagewinnr(i)
+"     let l:bufnr = l:buflist[l:win - 1]
+"     let l:path = bufname(l:bufnr)
+"     let l:name = l:path !=# '' ? fnamemodify(l:path, ':t') : '[No Name]'
+"     let l:mark = i == tabpagenr() ? '>' : ' '
+"     call add(l:lines, printf('%s %d: %s  (%s)', l:mark, i, l:name, fnamemodify(l:path, ':~:.')))
+"   endfor
+"   echo join(l:lines, "\n")
+"   let l:choice = input('Tab: ')
+"   redraw
+"   if l:choice =~# '^\d\+$' && l:choice >= 1 && l:choice <= tabpagenr('$')
+"     execute 'tabnext ' . l:choice
+"   endif
+" endfunction
+
+" nnoremap T :call TabsPicker()<CR>
+
+" Better version with popup_menu (requires Vim>=8.2)
+function! TabsPopup() abort
+  let l:items = []
+  for i in range(1, tabpagenr('$'))
+    let l:bufnr = tabpagebuflist(i)[tabpagewinnr(i) - 1]
+    let l:path = bufname(l:bufnr)
+    let l:name = l:path !=# '' ? fnamemodify(l:path, ':t') : '[No Name]'
+    let l:mod = getbufvar(l:bufnr, '&modified') ? ' [+]' : ''
+    call add(l:items, printf('%d: %s%s  (%s)', i, l:name, l:mod, fnamemodify(l:path, ':~:.')))
+  endfor
+
+  let l:id = popup_menu(l:items, {
+        \ 'title': ' Tabs ',
+        \ 'pos': 'center',
+        \ 'padding': [0, 1, 0, 1],
+        \ 'filter': function('s:TabsPopupFilter'),
+        \ 'callback': function('s:TabsPopupDone'),
+        \ })
+
+  " sets the cursor to the current tab
+  call win_execute(l:id, 'normal! ' . tabpagenr() . 'G')
+endfunction
+
+function! s:TabsPopupFilter(id, key) abort
+  " numbers 1-9 jumps to the tab right away
+  if a:key =~# '^[1-9]$' && str2nr(a:key) <= tabpagenr('$')
+    call popup_close(a:id, str2nr(a:key))
+    return 1
+  endif
+  " q closes the menu
+  if a:key ==# 'q'
+    call popup_close(a:id, -1)
+    return 1
+  endif
+  " (j/k, arrow keys, Enter, Esc, x) works with the default filter
+  return popup_filter_menu(a:id, a:key)
+endfunction
+
+function! s:TabsPopupDone(id, result) abort
+  if a:result > 0
+    execute 'tabnext ' . a:result
+  endif
+endfunction
+
+nnoremap T :call TabsPopup()<CR>
