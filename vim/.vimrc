@@ -168,6 +168,12 @@ let g:lspServers = [
 	\     path: 'vim-language-server',
 	\     args: ['--stdio'],
     \ },
+    \#{
+    \   name: 'emmet',
+    \   filetype: 'html',
+    \   path: 'emmet-language-server',
+    \   args: ['--stdio'],
+    \ },
     \ ]
 
 autocmd User LspSetup call LspAddServer(g:lspServers)
@@ -270,6 +276,7 @@ highlight PmenuExtra guifg=#c678dd
 highlight PmenuExtraSel guifg=#ffffff gui=bold
 
 " Netrw configuration:
+let g:netrw_browse_split = 3 " Default value is 0, which opens the new file in the current tab. Value 3 opens the file in the new tab.
 let g:netrw_winsize = 22
 let g:netrw_banner = 0 " shift + i to show the banner
 let g:netrw_localcopydircmd = 'cp -r' " Enabling recursive copy of the directories
@@ -284,7 +291,8 @@ augroup END
 function! NetrwMapping()
 " navigation
   nmap <buffer> H -
-  nmap <buffer> L <CR>
+  nmap <buffer> <silent> L :call NetrwOpenHere()<CR>
+  nmap <buffer> <silent> l :call NetrwOpenHere()<CR>
 
   " window navigation
   nnoremap <buffer> <C-h> <C-w>h
@@ -316,6 +324,7 @@ function! NetrwMapping()
   nmap <buffer> fl :echo join(netrw#Expose("netrwmarkfilelist"), "\n")<CR>
   nmap <buffer> fq :echo 'Target: ' . netrw#Expose("netrwmftgt")<CR>
 endfunction
+
 function! NetrwRemoveRecursive()
   if &filetype ==# 'netrw'
     cnoremap <buffer> <CR> rm -r<CR>
@@ -328,6 +337,16 @@ function! NetrwRemoveRecursive()
     endtry
     cunmap <buffer> <CR>
   endif
+endfunction
+
+function! NetrwOpenHere() abort
+  let l:old = get(g:, 'netrw_browse_split', 3)
+  let g:netrw_browse_split = 0
+  try
+    execute "normal \<CR>"
+  finally
+    let g:netrw_browse_split = l:old
+  endtry
 endfunction
 
 " Terminal mode config
