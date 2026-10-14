@@ -39,6 +39,16 @@ set mouse=a
 :set errorformat=%f
 nnoremap <leader>ff :cexpr system('find . -name ""') \| copen<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
+" Make current file executable
+nnoremap <leader>x :!chmod +x %<CR>
+
+" Toggle between relativenumber and norelativenumber
+nnoremap <F5> :if &relativenumber <Bar>
+            \ set norelativenumber <Bar>
+            \ else <Bar>
+            \ set relativenumber <Bar>
+            \ endif<CR>
+
 " Move selected lines up and down with J and K in Visual mode
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
